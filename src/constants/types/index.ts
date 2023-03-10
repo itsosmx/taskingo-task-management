@@ -11,3 +11,10 @@ export interface RoutesProps {
   component: React.FunctionComponent;
   path: string;
 }
+interface AppProviderPropsBoards {
+  name: string;
+  slug: string;
+}
+export interface AppProviderProps {
+  boards: AppProviderPropsBoards[];
+}

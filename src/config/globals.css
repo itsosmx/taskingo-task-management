@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,7 +12,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Golos Text', sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -24,4 +26,8 @@ button {
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+.scrollbar::-webkit-scrollbar {
+  display: none;
 }

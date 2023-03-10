@@ -1,6 +1,84 @@
-import React from "react";
-import { Container } from "./styled";
+import { useProvider, Modal } from "..";
+import {
+  Container,
+  Title,
+  BoardButton,
+  BoardsItems,
+  BoardsTitle,
+  Wrapper,
+  BoardsAddButton,
+  BoardsContainer,
+  Shadow,
+  Input,
+  Button,
+  ModalContent,
+} from "./styled";
+import { useSearchParams } from "react-router-dom";
+import { useState, useRef } from "react";
+import { toast } from "react-toastify";
 
 export default function Sidebar() {
-  return <Container></Container>;
+  const { data, setDate } = useProvider();
+  const nameRef = useRef<any>();
+  const [searchParams] = useSearchParams();
+  const [visible, setVisible] = useState(false);
+
+  function changeModalVisible() {
+    setVisible((state) => !state);
+  }
+  function onSave() {
+    if (!nameRef.current.value) return console.log("sda?");
+    const slug = nameRef.current.value.toLowerCase().replace(" ", "-");
+    const search = data.boards.find((x) => x.slug === slug);
+    if (search) return toast.error("Board with this name already exist.");
+    setDate((state) => ({
+      ...state,
+      boards: [
+        ...state.boards,
+        {
+          name: nameRef.current.value,
+          slug,
+        },
+      ],
+    }));
+    changeModalVisible();
+  }
+
+  return (
+    <Container>
+      <Wrapper>
+        <Title>Taskingo</Title>
+        <BoardsContainer>
+          <BoardsTitle>All Boards ( {data.boards.length} )</BoardsTitle>
+          <BoardsItems className="scrollbar">
+            <BoardsAddButton onClick={changeModalVisible}>
+              <i className="fa-solid fa-folder-plus"></i>
+              <p>Create New Board</p>
+            </BoardsAddButton>
+            {data.boards.map((item) => (
+              <BoardButton
+                className={searchParams.get("board") === item.slug ? "active" : ""}
+                to={`?board=${item.slug}`}
+                key={item.slug}
+              >
+                <i className="fa-regular fa-folder"></i>
+                <p>{item.name}</p>
+              </BoardButton>
+            ))}
+          </BoardsItems>
+        </BoardsContainer>
+      </Wrapper>
+      <Modal visible={visible} setVisible={setVisible}>
+        <ModalContent>
+          <h3>Add New Board</h3>
+          <Input ref={nameRef} placeholder="Board Name" />
+          <Button add onClick={onSave}>
+            Add
+          </Button>
+          <Button onClick={changeModalVisible}>Cancel</Button>
+        </ModalContent>
+      </Modal>
+      <Shadow />
+    </Container>
+  );
 }
