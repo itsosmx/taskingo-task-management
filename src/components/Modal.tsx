@@ -10,7 +10,6 @@ interface ModalProps extends PropsWithChildren {
 export default function Modal({ visible, setVisible, ...props }: ModalProps) {
   return (
     <Container
-      className={visible ? "active" : ""}
       initial={{
         opacity: 0,
       }}
@@ -18,8 +17,9 @@ export default function Modal({ visible, setVisible, ...props }: ModalProps) {
         opacity: [0, 0.5, 1],
       }}
       transition={{
-        duration: 1,
+        duration: 0.5,
       }}
+      className={visible ? "active" : ""}
     >
       <Wrapper>{props.children}</Wrapper>
     </Container>

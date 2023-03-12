@@ -11,10 +11,30 @@ export interface RoutesProps {
   component: React.FunctionComponent;
   path: string;
 }
-interface AppProviderPropsBoards {
-  name: string;
-  slug: string;
-}
+
 export interface AppProviderProps {
   boards: AppProviderPropsBoards[];
+  columns: AppProviderPropsColumns[];
+}
+interface AppProviderPropsColumns {
+  title: string;
+  id: string;
+}
+export interface AppProviderPropsBoards {
+  name: string;
+  slug: string;
+  tasks?: AppProviderPropsBoardTasks[];
+}
+interface AppProviderPropsBoardTasks {
+  title: string;
+  id: string;
+  description: string;
+  subtasks?: AppProviderPropsBoardSubtasks[];
+  status: string;
+  createAt?: number;
+}
+interface AppProviderPropsBoardSubtasks {
+  title: string;
+  status: boolean;
+  updateAt: number;
 }
