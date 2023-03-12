@@ -13,12 +13,12 @@ export default function Provider({ ...props }: React.PropsWithChildren) {
       {
         name: "Platform Launch",
         slug: "pt-launch",
-        tasks: [todo, todo, todo, done],
+        tasks: [todo(), todo(), todo(), done],
       },
       {
         name: "Marketing Plans",
         slug: "m-plans",
-        tasks: [todo, done],
+        tasks: [todo(), done],
       },
       {
         name: "Road map",
@@ -46,24 +46,29 @@ export default function Provider({ ...props }: React.PropsWithChildren) {
   return <AppProviderContext.Provider value={{ data, setDate }}>{props.children}</AppProviderContext.Provider>;
 }
 
-const todo = {
-  title: "Build UI for onBoard",
-  status: "default-todo",
-  description: "Build UI for onBoard asdas dasd asd",
-  createAt: Date.now(),
-  id: Math.random().toString(),
-  subtasks: [
-    {
-      title: "sad",
-      status: false,
-      updateAt: 8545454545,
-    },
-    {
-      title: "sad",
-      status: true,
-      updateAt: 8545454545,
-    },
-  ],
+const todo = () => {
+  return {
+    title: "Build UI for onBoard",
+    status: "default-todo",
+    description: "Build UI for onBoard asdas dasd asd",
+    createAt: Date.now(),
+    id: Math.random().toString(),
+    subtasks: [
+      {
+        content: "sad",
+        status: false,
+        updateAt: Date.now(),
+        id: Math.random().toString(),
+      },
+      {
+        content:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet excepturi fuga illo officia autem dolores vero quasi, dolorem alias quos rem illum culpa, laboriosam debitis cum laudantium sapiente eligendi similique!",
+        status: true,
+        updateAt: Date.now(),
+        id: Math.random().toString(),
+      },
+    ],
+  };
 };
 const done = {
   title: "Build UI for onBoard",

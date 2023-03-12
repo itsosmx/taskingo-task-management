@@ -7,11 +7,13 @@ export default function useHorizontalScroll() {
     if (!element) return;
     function onWheel(e: WheelEvent) {
       if (e.deltaY === 0) return;
-      e.preventDefault();
-      element?.scrollTo({
-        left: element.scrollLeft + e.deltaY * 2,
-        behavior: "smooth",
-      });
+      console.log(element.scrollLeft);
+
+      // e.preventDefault();
+      // element?.scrollTo({
+      //   left: element.scrollLeft + e.deltaY * 2,
+      //   behavior: "smooth",
+      // });
     }
 
     element.addEventListener("wheel", onWheel);

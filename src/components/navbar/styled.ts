@@ -14,17 +14,23 @@ export const Wrapper = styled.div`
   justify-content: space-between;
 `;
 export const Title = styled.h2``;
-export const Button = styled.div`
+export const Button = styled.button`
   display: flex;
   align-items: center;
   gap: 0.5rem;
   background-color: ${(props) => props.theme.secondary};
+  color: ${(props) => props.theme.text};
   padding: 0.5rem 1.5rem;
   border-radius: 1rem;
+  font-size: 1.1rem;
   margin-inline: 1rem;
   cursor: pointer;
   :hover {
     filter: brightness(0.9);
+  }
+  :disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
   }
 `;
 export const Actions = styled.div`

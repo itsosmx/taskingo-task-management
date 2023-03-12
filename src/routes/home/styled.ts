@@ -19,11 +19,11 @@ export const Body = styled.div`
   overflow-x: auto;
   ::-webkit-scrollbar {
     height: 0.5rem;
+    width: 0.5rem;
     background-color: ${(props) => props.theme.primary};
   }
   ::-webkit-scrollbar-thumb {
     background-color: ${(props) => props.theme.secondary};
-    border-radius: 1rem;
   }
 `;
 
@@ -68,11 +68,60 @@ export const TaskTitle = styled.div`
   font-size: 0.9rem;
   font-weight: bold;
 `;
-export const SubTasks = styled.div`
+export const SubTitle = styled.div`
   color: ${(props) => props.theme.primaryText};
   font-size: 0.8rem;
 `;
 export const TaskBody = styled.div`
-  +
+  overflow: auto;
+  resize: vertical;
+  height: 0;
+  overflow: hidden;
+  padding: 0;
+  transition: height 500ms;
+  &.active {
+    height: 200px;
+    min-height: 200px;
+  }
 `;
-export const TaskDescription = styled.div``;
+export const TaskDescription = styled.div`
+  background-color: rgba(0, 0, 0, 0.07);
+  color: ${(props) => props.theme.text};
+  border-radius: 0.4rem;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+`;
+export const Subtasks = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+export const SubtaskCard = styled.div<any>`
+  background-color: ${(props) => props.theme.darkPrimary};
+  color: ${(props) => props.theme.text};
+  border-radius: 0.4rem;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  p {
+    text-decoration: ${(props) => props.checked && "line-through"};
+  }
+  span {
+    color: ${(props) => props.theme.primaryText};
+    font-size: 0.6rem;
+    position: absolute;
+    top: -0.5rem;
+    right: 0;
+  }
+`;
+export const SubtaskCheckbox = styled.input`
+  font-size: 1rem;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+`;

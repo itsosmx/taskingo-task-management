@@ -34,7 +34,8 @@ interface AppProviderPropsBoardTasks {
   createAt?: number;
 }
 interface AppProviderPropsBoardSubtasks {
-  title: string;
+  content: string;
   status: boolean;
   updateAt: number;
+  id: string;
 }

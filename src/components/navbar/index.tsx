@@ -6,20 +6,19 @@ import { Button, Container, Menu, Title, Wrapper, Actions } from "./styled";
 export default function Navbar() {
   const { data } = useProvider();
   const [searchParams] = useSearchParams();
-  const [current, setCurrent] = React.useState<any>();
+  const [current, setCurrent] = React.useState<any>(null);
 
   React.useEffect(() => {
     const target = data?.boards?.find((x) => x.slug === searchParams.get("board"));
     setCurrent(target);
   }, [searchParams, data]);
 
-  if (!current) return <Container>loading....</Container>;
   return (
     <Container>
       <Wrapper>
-        <Title>{current.name}</Title>
+        <Title>{current ? current.name : "No Board Selected."}</Title>
         <Actions>
-          <Button>
+          <Button disabled={!current}>
             <i className="fa-solid fa-plus"></i>
             <p>Add New Task</p>
           </Button>

@@ -10,9 +10,12 @@ import {
   Task,
   TaskTitle,
   TaskDescription,
-  SubTasks,
   HeaderColor,
   TaskBody,
+  SubTitle,
+  Subtasks,
+  SubtaskCard,
+  SubtaskCheckbox,
 } from "./styled";
 import { useEffect, useState } from "react";
 import { AppProviderPropsBoards } from "../../constants/types";
@@ -28,6 +31,12 @@ export default function Home() {
     const target = data?.boards?.find((x) => x.slug === searchParams.get("board"));
     setCurrent(target);
   }, [searchParams, data]);
+  console.log(active);
+
+  function onActiveTask(id: string) {
+    if (active === id) return setActive("");
+    setActive(id);
+  }
 
   return (
     <Container>
@@ -47,17 +56,27 @@ export default function Home() {
                   current?.tasks
                     .filter((x) => x.status === item.id)
                     .map((task) => (
-                      <Task onClick={() => setActive(task.id)} key={task.id}>
+                      <Task onClick={() => onActiveTask(task.id)} key={task.id}>
                         <TaskTitle>{task.title}</TaskTitle>
-                        <TaskDescription></TaskDescription>
-                        {task.subtasks?.length ? (
-                          <SubTasks>
-                            {task.subtasks?.filter((x) => x.status).length} of {task.subtasks?.length} subtasks
-                          </SubTasks>
-                        ) : (
-                          <SubTasks>no subtasks</SubTasks>
-                        )}
-                        {<TaskBody className={task.id === active ? "active" : ""}>sad</TaskBody>}
+                        <SubTitle>
+                          {task.subtasks?.length
+                            ? `${task.subtasks?.filter((x) => x.status).length} of ${task.subtasks?.length} subtasks`
+                            : "No subtasks"}
+                        </SubTitle>
+                        {
+                          <TaskBody className={task.id === active ? "active" : ""}>
+                            <TaskDescription>{task.description}</TaskDescription>
+                            <Subtasks>
+                              {task.subtasks?.map((subtask) => (
+                                <SubtaskCard checked={subtask.status} key={subtask.id}>
+                                  <p>{subtask.content}</p>
+                                  <SubtaskCheckbox type="checkbox" name="" id="" checked={subtask.status} />
+                                  <span>{new Date(subtask.updateAt).toUTCString()}</span>
+                                </SubtaskCard>
+                              ))}
+                            </Subtasks>
+                          </TaskBody>
+                        }
                       </Task>
                     ))}
               </Row>
