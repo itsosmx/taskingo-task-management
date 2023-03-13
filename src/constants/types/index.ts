@@ -13,6 +13,7 @@ export interface RoutesProps {
 }
 
 export interface AppProviderProps {
+  userId: string;
   boards: AppProviderPropsBoards[];
   columns: AppProviderPropsColumns[];
 }
@@ -38,4 +39,9 @@ interface AppProviderPropsBoardSubtasks {
   status: boolean;
   updateAt: number;
   id: string;
+}
+
+export interface SignInProps {
+  email: string;
+  password: string;
 }

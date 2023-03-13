@@ -1,12 +1,12 @@
 import "./config/globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import "./config/firebase";
 import { ThemeProvider } from "styled-components";
 import { DarkTheme } from "./config/themes";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Main } from "./config/styled.main";
+import { Main, ToastContainer } from "./config/styled.main";
 import { routes } from "./routes";
 import { AppProvider } from "./components";
-import { ToastContainer } from "react-toastify";
 
 export default function App() {
   return (
@@ -15,7 +15,7 @@ export default function App() {
         <Main>
           <ToastContainer
             position="bottom-right"
-            autoClose={3000}
+            autoClose={50000000000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick

@@ -41,6 +41,7 @@ export default function Sidebar() {
         },
       ],
     }));
+    nameRef.current.value = "";
     changeModalVisible();
   }
 
@@ -71,7 +72,7 @@ export default function Sidebar() {
       <Modal visible={visible} setVisible={setVisible}>
         <ModalContent>
           <h3>Add New Board</h3>
-          <Input ref={nameRef} placeholder="Board Name" />
+          <Input autoFocus ref={nameRef} placeholder="Board Name" />
           <Button add onClick={onSave}>
             Add
           </Button>
