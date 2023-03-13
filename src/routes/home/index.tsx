@@ -26,6 +26,11 @@ export default function Home() {
   const [searchParams] = useSearchParams();
   const [current, setCurrent] = useState<AppProviderPropsBoards>();
   const [active, setActive] = useState("");
+  const [dragging, setDragging] = useState({
+    state: false,
+    x: 0,
+    y: 0,
+  });
 
   useEffect(() => {
     const target = data?.boards?.find((x) => x.slug === searchParams.get("board"));
@@ -36,6 +41,17 @@ export default function Home() {
   function onActiveTask(id: string) {
     if (active === id) return setActive("");
     setActive(id);
+  }
+
+  type DragEventHandler = any;
+  function handleDragStart(event: DragEventHandler) {
+    setDragging((state) => ({ ...state, state: true }));
+  }
+  function handleDrag(event: DragEventHandler) {
+    setDragging((state) => ({ ...state, state: true, x: event.clientX, y: event.clientY }));
+  }
+  function handleDragEnd(event: DragEventHandler) {
+    setDragging((state) => ({ ...state, state: false }));
   }
 
   return (
@@ -56,7 +72,14 @@ export default function Home() {
                   current?.tasks
                     .filter((x) => x.status === item.id)
                     .map((task) => (
-                      <Task onClick={() => onActiveTask(task.id)} key={task.id}>
+                      <Task
+                        draggable
+                        onDragStart={handleDragStart}
+                        onDrag={handleDrag}
+                        onDragEnd={handleDragEnd}
+                        onClick={() => onActiveTask(task.id)}
+                        key={task.id}
+                      >
                         <TaskTitle>{task.title}</TaskTitle>
                         <SubTitle>
                           {task.subtasks?.length

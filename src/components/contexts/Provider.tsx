@@ -1,5 +1,6 @@
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import React, { useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { AppProviderProps } from "../../constants/types";
 import { getCurrentUser } from "../../services/database";
 
@@ -14,6 +15,7 @@ export const AppProviderContext = React.createContext({} as AppProviderContextPr
 export default function Provider({ ...props }: React.PropsWithChildren) {
   const [data, setDate] = React.useState<AppProviderProps>(tst);
   const [user, setUser] = React.useState<User | null>(null);
+  const navigate = useNavigate();
   const isMount = React.useRef(true);
 
   useEffect(() => {
@@ -39,6 +41,10 @@ export default function Provider({ ...props }: React.PropsWithChildren) {
     })();
 
     return () => _unsubscribe && _unsubscribe();
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) navigate("/auth");
   }, [user]);
 
   return (
