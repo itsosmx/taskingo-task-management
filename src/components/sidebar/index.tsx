@@ -12,13 +12,17 @@ import {
   Input,
   Button,
   ModalContent,
+  UserWrapper,
+  Avatar,
+  Actions,
 } from "./styled";
 import { useSearchParams } from "react-router-dom";
 import { useState, useRef } from "react";
 import { toast } from "react-toastify";
+import { signOutUser } from "../../services/firebase";
 
 export default function Sidebar() {
-  const { data, setDate } = useProvider();
+  const { data, setDate, user } = useProvider();
   const nameRef = useRef<any>();
   const [searchParams] = useSearchParams();
   const [visible, setVisible] = useState(false);
@@ -68,7 +72,21 @@ export default function Sidebar() {
             ))}
           </BoardsItems>
         </BoardsContainer>
+        {user && user?.uid && (
+          <Actions>
+            <UserWrapper>
+              {user?.photoURL && (
+                <Avatar>
+                  <img src={user?.photoURL} alt="avatar" />
+                </Avatar>
+              )}
+              <span>{user?.displayName}</span>
+              <i onClick={signOutUser} className="fa-solid fa-right-from-bracket"></i>
+            </UserWrapper>
+          </Actions>
+        )}
       </Wrapper>
+
       <Modal visible={visible} setVisible={setVisible}>
         <ModalContent>
           <h3>Add New Board</h3>
@@ -79,7 +97,7 @@ export default function Sidebar() {
           <Button onClick={changeModalVisible}>Cancel</Button>
         </ModalContent>
       </Modal>
-      <Shadow />
+      {/* <Shadow /> */}
     </Container>
   );
 }

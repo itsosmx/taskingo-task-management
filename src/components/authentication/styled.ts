@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  height: 100vh;
   position: relative;
+  padding: 2rem;
 `;
 export const Background = styled.img``;
 export const Wrapper = styled.div`
@@ -10,6 +10,10 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  .or {
+    margin-inline: 2rem;
+  }
 `;
 export const Services = styled.div`
   display: flex;
@@ -21,7 +25,7 @@ export const Button = styled.button`
   gap: 1rem;
   align-items: center;
   color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.primary};
+  background-color: ${(props) => props.theme.darkPrimary};
   transition: 500ms;
   border-radius: 1rem;
   i {
@@ -51,7 +55,7 @@ export const Form = styled.form`
 export const Input = styled.input`
   outline: none;
   border: none;
-  background-color: ${(props) => props.theme.primary};
+  background-color: ${(props) => props.theme.lightPrimary};
   padding: 0.7rem 2rem;
   color: ${(props) => props.theme.text};
 `;
@@ -60,4 +64,9 @@ export const Submit = styled.div`
   padding: 0.5rem;
   text-align: center;
   border-radius: 2rem;
+  transition: 500ms;
+  cursor: pointer;
+  :hover {
+    filter: brightness(0.9);
+  }
 `;

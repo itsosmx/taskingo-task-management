@@ -13,7 +13,7 @@ export interface RoutesProps {
 }
 
 export interface AppProviderProps {
-  userId: string;
+  uid: string;
   boards: AppProviderPropsBoards[];
   columns: AppProviderPropsColumns[];
 }

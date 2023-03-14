@@ -26,6 +26,7 @@ export default function Home() {
   const [searchParams] = useSearchParams();
   const [current, setCurrent] = useState<AppProviderPropsBoards>();
   const [active, setActive] = useState("");
+
   const [dragging, setDragging] = useState({
     state: false,
     x: 0,

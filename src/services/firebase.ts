@@ -6,9 +6,11 @@ import {
   GithubAuthProvider,
   signInAnonymously,
   createUserWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { SignInMethods } from "../constants/enums";
 import { SignInProps } from "../constants/types";
+import { createUser } from "./database";
 
 /**
  * Handle signIn to firebase with multiple methods
@@ -47,11 +49,19 @@ export async function RegisterAccount(
     }
     if (provider) {
       return signInWithPopup(auth, provider)
-        .then((response) => {
-          console.log(response.user);
-        })
+        .then((response) => createUser(response.user.uid).then((e) => console.log(e)))
+        .then((e) => console.log(e))
         .catch(onError);
     }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function signOutUser() {
+  try {
+    const auth = getAuth();
+    return signOut(auth);
   } catch (error) {
     console.log(error);
   }

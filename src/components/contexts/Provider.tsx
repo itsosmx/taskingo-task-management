@@ -1,6 +1,7 @@
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import React, { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AppProviderProps } from "../../constants/types";
 import { getCurrentUser } from "../../services/database";
 
@@ -13,7 +14,7 @@ interface AppProviderContextProps {
 export const AppProviderContext = React.createContext({} as AppProviderContextProps);
 
 export default function Provider({ ...props }: React.PropsWithChildren) {
-  const [data, setDate] = React.useState<AppProviderProps>(tst);
+  const [data, setDate] = React.useState<AppProviderProps>(initialization);
   const [user, setUser] = React.useState<User | null>(null);
   const navigate = useNavigate();
   const isMount = React.useRef(true);
@@ -27,30 +28,34 @@ export default function Provider({ ...props }: React.PropsWithChildren) {
 
   useEffect(() => {
     if (!user) return;
-    let _unsubscribe: Function;
+    let _unsubscribe: Function = () => null;
     (async () => {
-      const { unsubscribe, data } = await getCurrentUser(
+      const { unsubscribe, data: _data } = await getCurrentUser(
         user?.uid,
         (snap: any) => {
           _unsubscribe = unsubscribe;
-          setDate(snap);
+          if (snap) setDate({ ...initialization, ...snap.val() });
         },
-        (error: any) => {}
+        (error: any) => {
+          toast.error("Something went wrong", error);
+        }
       );
-      setDate(data);
+      if (data) setDate({ ...initialization, ..._data });
     })();
 
-    return () => _unsubscribe && _unsubscribe();
-  }, [user]);
-
-  useEffect(() => {
-    if (!user) navigate("/auth");
+    return () => _unsubscribe();
   }, [user]);
 
   return (
     <AppProviderContext.Provider value={{ data, setDate, user, setUser }}>{props.children}</AppProviderContext.Provider>
   );
 }
+
+const initialization: AppProviderProps = {
+  uid: "",
+  boards: [],
+  columns: [],
+};
 
 const todo = () => {
   return {
@@ -85,7 +90,7 @@ const done = {
 };
 
 const tst = {
-  userId: "isana",
+  uid: "isana",
   boards: [
     {
       name: "Platform Launch",

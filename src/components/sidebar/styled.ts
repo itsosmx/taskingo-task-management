@@ -1,15 +1,17 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
-import { Modal as CustomModal } from "..";
 
-export const Container = styled.div((props) => ({
-  backgroundColor: props.theme.primary,
-  borderRight: `1px ${props.theme.lightPrimary} solid`,
-  gridArea: "sidebar",
-  position: "relative",
-}));
-
-export const Wrapper = styled.div``;
+export const Container = styled.div`
+  background-color: ${(props) => props.theme.primary};
+  border-right: 1px ${(props) => props.theme.lightPrimary} solid;
+  grid-area: sidebar;
+  position: relative;
+`;
+export const Wrapper = styled.div`
+  display: grid;
+  grid-template-rows: ${(props) => props.theme.navbarHeight} 4fr 1fr;
+  height: 100%;
+`;
 export const Shadow = styled.div`
   /* background-color: red; */
   position: absolute;
@@ -18,7 +20,6 @@ export const Shadow = styled.div`
   height: 100px;
   background-image: linear-gradient(to top, ${(props) => props.theme.primary} 30%, transparent);
 `;
-// ${(props) => props.theme.primary}
 export const Title = styled.h1((props) => ({
   lineHeight: props.theme.navbarHeight,
   textAlign: "center",
@@ -36,10 +37,8 @@ export const BoardsItems = styled.div`
   flex-direction: column;
   gap: 0.2rem;
   margin-top: 1rem;
-  height: calc(100vh - ${(props) => props.theme.navbarHeight} - 100px);
   overflow-y: scroll;
 `;
-
 const RawButton = css`
   display: flex;
   align-items: center;
@@ -63,12 +62,10 @@ const RawButton = css`
 export const BoardButton = styled(Link)`
   ${RawButton}
 `;
-
 export const BoardsAddButton = styled.div`
   ${RawButton}
   color: ${(props) => props.theme.secondary};
 `;
-
 export const Input = styled.input`
   background-color: ${(props) => props.theme.primary};
   border: 1px solid ${(props) => props.theme.lightPrimary};
@@ -77,10 +74,7 @@ export const Input = styled.input`
   color: ${(props) => props.theme.text};
   outline: none;
 `;
-interface Props {
-  add?: boolean;
-}
-export const Button = styled.div<Props>`
+export const Button = styled.div<{ add?: boolean }>`
   background-color: ${(props) => (props?.add ? props.theme.secondary : props.theme.red)};
   text-align: center;
   padding: 0.4rem;
@@ -91,6 +85,39 @@ export const Button = styled.div<Props>`
     filter: brightness(0.8);
   }
 `;
+
+export const Actions = styled.div`
+  padding: 0.5rem;
+  overflow: hidden;
+`;
+export const UserWrapper = styled.div`
+  background-color: ${(props) => props.theme.darkPrimary};
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0.5rem;
+  i {
+    font-size: 1.2em;
+    color: ${(props) => props.theme.red};
+    cursor: pointer;
+    :hover {
+      filter: brightness(0.9);
+    }
+  }
+`;
+export const Avatar = styled.div`
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  img {
+    object-fit: cover;
+    width: 100%;
+  }
+`;
+
 export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
