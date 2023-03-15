@@ -16,7 +16,7 @@ export default function App() {
           <Main>
             <ToastContainer
               position="bottom-right"
-              autoClose={50000000000}
+              autoClose={5000}
               hideProgressBar={false}
               newestOnTop={false}
               closeOnClick

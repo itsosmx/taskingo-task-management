@@ -8,9 +8,8 @@ export const Container = styled.div`
   position: relative;
 `;
 export const Wrapper = styled.div`
-  display: grid;
-  grid-template-rows: ${(props) => props.theme.navbarHeight} 4fr 1fr;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 export const Shadow = styled.div`
   /* background-color: red; */
@@ -26,18 +25,26 @@ export const Title = styled.h1((props) => ({
   color: props.theme.secondary,
 }));
 export const BoardsContainer = styled.div``;
-export const BoardsTitle = styled.p((props) => ({
-  textTransform: "uppercase",
-  color: props.theme.primaryText,
-  fontWeight: "bold",
-  marginLeft: "2rem",
-}));
+export const BoardsTitle = styled.p`
+  text-transform: uppercase;
+  color: ${(props) => props.theme.primaryText};
+  font-weight: bold;
+  margin-left: 2rem;
+`;
 export const BoardsItems = styled.div`
   display: flex;
   flex-direction: column;
+  height: 65vh;
   gap: 0.2rem;
   margin-top: 1rem;
   overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 4px;
+    background-color: ${(props) => props.theme.secondary};
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
 `;
 const RawButton = css`
   display: flex;

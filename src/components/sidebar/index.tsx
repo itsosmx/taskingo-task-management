@@ -1,4 +1,4 @@
-import { useProvider, Modal } from "..";
+import { useProvider, Modal, Avatar } from "..";
 import {
   Container,
   Title,
@@ -13,7 +13,6 @@ import {
   Button,
   ModalContent,
   UserWrapper,
-  Avatar,
   Actions,
 } from "./styled";
 import { useSearchParams } from "react-router-dom";
@@ -49,17 +48,19 @@ export default function Sidebar() {
     changeModalVisible();
   }
 
+  console.log(user);
+
   return (
     <Container>
+      <Title>Taskingo</Title>
       <Wrapper>
-        <Title>Taskingo</Title>
         <BoardsContainer>
           <BoardsTitle>All Boards ( {data.boards.length} )</BoardsTitle>
-          <BoardsItems className="scrollbar">
-            <BoardsAddButton onClick={changeModalVisible}>
-              <i className="fa-solid fa-folder-plus"></i>
-              <p>Create New Board</p>
-            </BoardsAddButton>
+          <BoardsAddButton onClick={changeModalVisible}>
+            <i className="fa-solid fa-folder-plus"></i>
+            <p>Create New Board</p>
+          </BoardsAddButton>
+          <BoardsItems>
             {data.boards.map((item) => (
               <BoardButton
                 className={searchParams.get("board") === item.slug ? "active" : ""}
@@ -72,19 +73,15 @@ export default function Sidebar() {
             ))}
           </BoardsItems>
         </BoardsContainer>
-        {user && user?.uid && (
-          <Actions>
+        <Actions>
+          {user && user?.uid && (
             <UserWrapper>
-              {user?.photoURL && (
-                <Avatar>
-                  <img src={user?.photoURL} alt="avatar" />
-                </Avatar>
-              )}
-              <span>{user?.displayName}</span>
+              <Avatar src={user?.photoURL} />
+              <span>{user?.displayName ? user?.displayName : "Anonymous"}</span>
               <i onClick={signOutUser} className="fa-solid fa-right-from-bracket"></i>
             </UserWrapper>
-          </Actions>
-        )}
+          )}
+        </Actions>
       </Wrapper>
 
       <Modal visible={visible} setVisible={setVisible}>
