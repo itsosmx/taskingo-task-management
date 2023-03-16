@@ -26,7 +26,25 @@ export const Body = styled.div`
     background-color: ${(props) => props.theme.secondary};
   }
 `;
+export const NewColumn = styled.div`
+  min-width: 350px;
+  max-width: 350px;
+  padding: 1rem;
+  border: 2px dashed ${(props) => props.theme.text};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.primaryText};
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: 500ms;
 
+  :hover {
+    filter: brightness(1.1);
+    border-color: ${(props) => props.theme.secondary};
+  }
+`;
 export const Column = styled.div`
   min-width: 350px;
   max-width: 350px;
@@ -124,4 +142,36 @@ export const SubtaskCheckbox = styled.input`
   display: grid;
   grid-template-columns: 1em auto;
   gap: 0.5em;
+`;
+
+export const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  p {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+`;
+
+export const Button = styled.div<{ add?: boolean }>`
+  background-color: ${(props) => (props?.add ? props.theme.secondary : props.theme.red)};
+  text-align: center;
+  padding: 0.4rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: 500ms;
+  :hover {
+    filter: brightness(0.8);
+  }
+`;
+
+export const Input = styled.input`
+  background-color: ${(props) => props.theme.primary};
+  border: 1px solid ${(props) => props.theme.lightPrimary};
+  padding: 1rem 3rem;
+  border-radius: 1rem;
+  color: ${(props) => props.theme.text};
+  outline: none;
 `;

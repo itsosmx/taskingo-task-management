@@ -8,23 +8,26 @@ import {
   Wrapper,
   BoardsAddButton,
   BoardsContainer,
-  Shadow,
   Input,
   Button,
   ModalContent,
   UserWrapper,
   Actions,
+  ThemeSwitch,
+  Theme,
 } from "./styled";
 import { useSearchParams } from "react-router-dom";
 import { useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { signOutUser } from "../../services/firebase";
+import { useTheme } from "styled-components";
 
 export default function Sidebar() {
-  const { data, setDate, user } = useProvider();
+  const { data, setDate, user, settings, setSettings } = useProvider();
   const nameRef = useRef<any>();
   const [searchParams] = useSearchParams();
   const [visible, setVisible] = useState(false);
+  const theme = useTheme();
 
   function changeModalVisible() {
     setVisible((state) => !state);
@@ -48,18 +51,18 @@ export default function Sidebar() {
     changeModalVisible();
   }
 
-  console.log(user);
-
   return (
     <Container>
-      <Title>Taskingo</Title>
       <Wrapper>
-        <BoardsContainer>
+        <div>
+          <Title>Taskingo</Title>
           <BoardsTitle>All Boards ( {data.boards.length} )</BoardsTitle>
           <BoardsAddButton onClick={changeModalVisible}>
             <i className="fa-solid fa-folder-plus"></i>
             <p>Create New Board</p>
           </BoardsAddButton>
+        </div>
+        <BoardsContainer>
           <BoardsItems>
             {data.boards.map((item) => (
               <BoardButton
@@ -81,6 +84,20 @@ export default function Sidebar() {
               <i onClick={signOutUser} className="fa-solid fa-right-from-bracket"></i>
             </UserWrapper>
           )}
+          <Theme>
+            <i className="fa-solid fa-sun"></i>
+            <ThemeSwitch
+              checkedIcon={false}
+              uncheckedIcon={false}
+              onChange={(value) => setSettings((state) => ({ ...state, isDarkTheme: value }))}
+              checked={settings.isDarkTheme}
+              //@ts-ignore
+              onColor={theme?.secondary}
+              //@ts-ignore
+              offColor={theme?.darkPrimary}
+            />
+            <i className="fa-solid fa-moon"></i>
+          </Theme>
         </Actions>
       </Wrapper>
 

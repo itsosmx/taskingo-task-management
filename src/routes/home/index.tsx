@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { Navbar, Sidebar, useHorizontalScroll, useProvider } from "../../components";
+import { Modal, Navbar, Sidebar, TextInput, useHorizontalScroll, useProvider } from "../../components";
 import {
   Container,
   Wrapper,
@@ -16,44 +16,47 @@ import {
   Subtasks,
   SubtaskCard,
   SubtaskCheckbox,
+  NewColumn,
+  ModalContainer,
+  Button,
+  Input,
 } from "./styled";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { AppProviderPropsBoards } from "../../constants/types";
+import { toast } from "react-toastify";
 
 export default function Home() {
-  const { data } = useProvider();
+  const { data, addColumn } = useProvider();
   const ref = useHorizontalScroll();
+  const form = useRef<HTMLInputElement | any>();
   const [searchParams] = useSearchParams();
   const [current, setCurrent] = useState<AppProviderPropsBoards>();
   const [active, setActive] = useState("");
-
-  const [dragging, setDragging] = useState({
-    state: false,
-    x: 0,
-    y: 0,
-  });
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const target = data?.boards?.find((x) => x.slug === searchParams.get("board"));
     setCurrent(target);
   }, [searchParams, data]);
-  console.log(active);
 
   function onActiveTask(id: string) {
     if (active === id) return setActive("");
     setActive(id);
   }
 
-  type DragEventHandler = any;
-  function handleDragStart(event: DragEventHandler) {
-    setDragging((state) => ({ ...state, state: true }));
+  function onAddColumn() {
+    setVisible((state) => !state);
   }
-  function handleDrag(event: DragEventHandler) {
-    setDragging((state) => ({ ...state, state: true, x: event.clientX, y: event.clientY }));
+
+  function onSave() {
+    if (!data?.boards.length || !current) return toast.error("You have to create a board first!");
+    if (!form.current.value) return;
+    addColumn({
+      title: form.current.value,
+      id: form.current.value?.toLowerCase().replace(" ", "-"),
+    });
   }
-  function handleDragEnd(event: DragEventHandler) {
-    setDragging((state) => ({ ...state, state: false }));
-  }
+  console.log(data);
 
   return (
     <Container>
@@ -73,14 +76,7 @@ export default function Home() {
                   current?.tasks
                     .filter((x) => x.status === item.id)
                     .map((task) => (
-                      <Task
-                        draggable
-                        onDragStart={handleDragStart}
-                        onDrag={handleDrag}
-                        onDragEnd={handleDragEnd}
-                        onClick={() => onActiveTask(task.id)}
-                        key={task.id}
-                      >
+                      <Task onClick={() => onActiveTask(task.id)} key={task.id}>
                         <TaskTitle>{task.title}</TaskTitle>
                         <SubTitle>
                           {task.subtasks?.length
@@ -106,8 +102,22 @@ export default function Home() {
               </Row>
             </Column>
           ))}
+          <NewColumn onClick={onAddColumn}>
+            <i className="fa-solid fa-plus"></i>
+            <p>Add New Column</p>
+          </NewColumn>
         </Body>
       </Wrapper>
+      <Modal visible={visible} setVisible={setVisible}>
+        <ModalContainer>
+          <p>Add New Column</p>
+          <Input ref={form} placeholder="Column Title" />
+          <Button onClick={onSave} add>
+            Add
+          </Button>
+          <Button onClick={onAddColumn}>Cancel</Button>
+        </ModalContainer>
+      </Modal>
     </Container>
   );
 }

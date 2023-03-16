@@ -1,12 +1,13 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
+import { signOutUser } from "../../services/firebase";
 import Authentication from "../authentication";
 import useProvider from "../hooks/useProvider";
 import Modal from "../Modal";
-import { Button, Container, Menu, Title, Wrapper, Actions } from "./styled";
+import { Button, Container, Title, Wrapper, Actions, SignIn, SignOut } from "./styled";
 
 export default function Navbar() {
-  const { data } = useProvider();
+  const { data, user } = useProvider();
   const [searchParams] = useSearchParams();
   const [current, setCurrent] = React.useState<any>(null);
   const [visible, setVisible] = React.useState(false);
@@ -25,10 +26,14 @@ export default function Navbar() {
             <i className="fa-solid fa-plus"></i>
             <p>Add New Task</p>
           </Button>
-          <Menu onClick={() => setVisible(!visible)} className="fa-solid fa-ellipsis-vertical"></Menu>
+          {user ? (
+            <SignOut onClick={signOutUser} className="fa-solid fa-right-from-bracket" />
+          ) : (
+            <SignIn onClick={() => setVisible(!visible)}>Sign In</SignIn>
+          )}
         </Actions>
       </Wrapper>
-      <Modal visible={visible} setVisible={setVisible}>
+      <Modal visible={!user && visible} setVisible={setVisible}>
         <Authentication />
       </Modal>
     </Container>

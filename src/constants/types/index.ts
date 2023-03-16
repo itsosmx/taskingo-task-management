@@ -17,7 +17,7 @@ export interface AppProviderProps {
   boards: AppProviderPropsBoards[];
   columns: AppProviderPropsColumns[];
 }
-interface AppProviderPropsColumns {
+export interface AppProviderPropsColumns {
   title: string;
   id: string;
 }
@@ -44,4 +44,8 @@ interface AppProviderPropsBoardSubtasks {
 export interface SignInProps {
   email: string;
   password: string;
+}
+
+export interface AppSettingsProps {
+  isDarkTheme: boolean;
 }

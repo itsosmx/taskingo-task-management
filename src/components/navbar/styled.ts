@@ -37,11 +37,33 @@ export const Actions = styled.div`
   display: flex;
   align-items: center;
 `;
-export const Menu = styled.i`
+export const SignIn = styled.button`
+  background-color: ${(props) => props.theme.secondary};
+  color: ${(props) => props.theme.text};
+  padding: 0.5rem 1.5rem;
+  border-radius: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  font-size: 1.2rem;
-  padding: 1rem;
   :hover {
     filter: brightness(0.9);
+  }
+  :disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+`;
+export const SignOut = styled.button`
+  background-color: ${(props) => props.theme.red};
+  color: ${(props) => props.theme.white};
+  padding: 0.5rem 1.5rem;
+  border-radius: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  :hover {
+    filter: brightness(0.9);
+  }
+  :disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
   }
 `;

@@ -1,15 +1,19 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import Switch from "react-switch";
 
 export const Container = styled.div`
   background-color: ${(props) => props.theme.primary};
   border-right: 1px ${(props) => props.theme.lightPrimary} solid;
-  grid-area: sidebar;
   position: relative;
+  grid-area: sidebar;
+  max-height: 100vh;
 `;
 export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: min-content 3fr 1fr;
+  height: 100%;
+  max-height: 100%;
 `;
 export const Shadow = styled.div`
   /* background-color: red; */
@@ -24,7 +28,16 @@ export const Title = styled.h1((props) => ({
   textAlign: "center",
   color: props.theme.secondary,
 }));
-export const BoardsContainer = styled.div``;
+export const BoardsContainer = styled.div`
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 4px;
+    background-color: ${(props) => props.theme.secondary};
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+`;
 export const BoardsTitle = styled.p`
   text-transform: uppercase;
   color: ${(props) => props.theme.primaryText};
@@ -34,17 +47,7 @@ export const BoardsTitle = styled.p`
 export const BoardsItems = styled.div`
   display: flex;
   flex-direction: column;
-  height: 65vh;
   gap: 0.2rem;
-  margin-top: 1rem;
-  overflow-y: scroll;
-  ::-webkit-scrollbar {
-    width: 4px;
-    background-color: ${(props) => props.theme.secondary};
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
 `;
 const RawButton = css`
   display: flex;
@@ -96,14 +99,16 @@ export const Button = styled.div<{ add?: boolean }>`
 export const Actions = styled.div`
   padding: 0.5rem;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 `;
 export const UserWrapper = styled.div`
   background-color: ${(props) => props.theme.darkPrimary};
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 2rem;
+  justify-content: space-between;
   padding: 0.5rem;
   i {
     font-size: 1.2em;
@@ -114,19 +119,18 @@ export const UserWrapper = styled.div`
     }
   }
 `;
-export const Avatar = styled.div`
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  overflow: hidden;
-  img {
-    object-fit: cover;
-    width: 100%;
-  }
-`;
-
 export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+export const ThemeSwitch = styled(Switch)``;
+export const Theme = styled.div`
+  background-color: ${(props) => props.theme.darkPrimary};
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5rem;
 `;
