@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { useSearchParams } from "react-router-dom";
 import { Modal, Navbar, Sidebar, TextInput, useHorizontalScroll, useProvider } from "../../components";
 import {
@@ -26,7 +28,7 @@ import { AppProviderPropsBoards } from "../../constants/types";
 import { toast } from "react-toastify";
 
 export default function Home() {
-  const { data, addColumn } = useProvider();
+  const { data, addColumn, user } = useProvider();
   const ref = useHorizontalScroll();
   const form = useRef<HTMLInputElement | any>();
   const [searchParams] = useSearchParams();
@@ -45,6 +47,7 @@ export default function Home() {
   }
 
   function onAddColumn() {
+    if (!user?.uid) return toast.error("You have to Sign In first!");
     setVisible((state) => !state);
   }
 
@@ -64,44 +67,45 @@ export default function Home() {
         <Navbar />
         <Sidebar />
         <Body ref={ref}>
-          {data.columns.map((item) => (
-            <Column key={item.id}>
-              <ColumnHeader>
-                <HeaderColor />
-                <p>{item.title}</p>
-              </ColumnHeader>
-              <Row>
-                {current?.tasks &&
-                  current?.tasks.length !== 0 &&
-                  current?.tasks
-                    .filter((x) => x.status === item.id)
-                    .map((task) => (
-                      <Task onClick={() => onActiveTask(task.id)} key={task.id}>
-                        <TaskTitle>{task.title}</TaskTitle>
-                        <SubTitle>
-                          {task.subtasks?.length
-                            ? `${task.subtasks?.filter((x) => x.status).length} of ${task.subtasks?.length} subtasks`
-                            : "No subtasks"}
-                        </SubTitle>
-                        {
-                          <TaskBody className={task.id === active ? "active" : ""}>
-                            <TaskDescription>{task.description}</TaskDescription>
-                            <Subtasks>
-                              {task.subtasks?.map((subtask) => (
-                                <SubtaskCard checked={subtask.status} key={subtask.id}>
-                                  <p>{subtask.content}</p>
-                                  <SubtaskCheckbox type="checkbox" name="" id="" checked={subtask.status} />
-                                  <span>{new Date(subtask.updateAt).toUTCString()}</span>
-                                </SubtaskCard>
-                              ))}
-                            </Subtasks>
-                          </TaskBody>
-                        }
-                      </Task>
-                    ))}
-              </Row>
-            </Column>
-          ))}
+          {data?.columns &&
+            Object.keys(data?.columns).map((item) => (
+              <Column key={data?.columns[item].id}>
+                <ColumnHeader>
+                  <HeaderColor />
+                  <p>{data?.columns[item].title}</p>
+                </ColumnHeader>
+                <Row>
+                  {current?.tasks &&
+                    current?.tasks.length !== 0 &&
+                    current?.tasks
+                      .filter((x) => x.status === data?.columns[item].id)
+                      .map((task) => (
+                        <Task onClick={() => onActiveTask(task.id)} key={task.id}>
+                          <TaskTitle>{task.title}</TaskTitle>
+                          <SubTitle>
+                            {task.subtasks?.length
+                              ? `${task.subtasks?.filter((x) => x.status).length} of ${task.subtasks?.length} subtasks`
+                              : "No subtasks"}
+                          </SubTitle>
+                          {
+                            <TaskBody className={task.id === active ? "active" : ""}>
+                              <TaskDescription>{task.description}</TaskDescription>
+                              <Subtasks>
+                                {task.subtasks?.map((subtask) => (
+                                  <SubtaskCard checked={subtask.status} key={subtask.id}>
+                                    <p>{subtask.content}</p>
+                                    <SubtaskCheckbox type="checkbox" name="" id="" checked={subtask.status} />
+                                    <span>{new Date(subtask.updateAt).toUTCString()}</span>
+                                  </SubtaskCard>
+                                ))}
+                              </Subtasks>
+                            </TaskBody>
+                          }
+                        </Task>
+                      ))}
+                </Row>
+              </Column>
+            ))}
           <NewColumn onClick={onAddColumn}>
             <i className="fa-solid fa-plus"></i>
             <p>Add New Column</p>

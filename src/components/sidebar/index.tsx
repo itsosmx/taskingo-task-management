@@ -30,6 +30,7 @@ export default function Sidebar() {
   const theme = useTheme();
 
   function changeModalVisible() {
+    if (!user?.uid) return toast.error("You have to Sign In first!");
     setVisible((state) => !state);
   }
   function onSave() {

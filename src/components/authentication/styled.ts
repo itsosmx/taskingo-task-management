@@ -2,25 +2,31 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
-  padding: 2rem;
+  padding: 2rem 4rem;
 `;
 export const Background = styled.img``;
 export const Wrapper = styled.div`
   height: 100%;
   display: flex;
+  align-items: stretch;
   justify-content: space-around;
-  align-items: center;
-
+  flex-direction: column;
+  gap: 1rem;
+  width: 25vw;
+  position: relative;
   .or {
     margin-inline: 2rem;
   }
+`;
+export const Title = styled.span`
+  text-align: center;
 `;
 export const Services = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
 `;
-export const Button = styled.button`
+export const Button = styled.div`
   display: flex;
   gap: 1rem;
   align-items: center;
@@ -28,6 +34,11 @@ export const Button = styled.button`
   background-color: ${(props) => props.theme.darkPrimary};
   transition: 500ms;
   border-radius: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 50px;
+  font-size: 0.9rem;
+  cursor: pointer;
   i {
     width: 50px;
     font-size: 1.5rem;
@@ -47,26 +58,13 @@ export const Button = styled.button`
   }
 `;
 
-export const Form = styled.form`
+export const Terms = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-`;
-export const Input = styled.input`
-  outline: none;
-  border: none;
-  background-color: ${(props) => props.theme.lightPrimary};
-  padding: 0.7rem 2rem;
-  color: ${(props) => props.theme.text};
-`;
-export const Submit = styled.div`
-  background-color: ${(props) => props.theme.secondary};
-  padding: 0.5rem;
+  font-size: 0.6rem;
   text-align: center;
-  border-radius: 2rem;
-  transition: 500ms;
-  cursor: pointer;
-  :hover {
-    filter: brightness(0.9);
+  gap: 0.4rem;
+  a {
+    color: ${(props) => props.theme.secondary};
   }
 `;

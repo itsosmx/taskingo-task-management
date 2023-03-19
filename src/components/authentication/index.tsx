@@ -1,12 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { SignInMethods } from "../../constants/enums";
 import { RegisterAccount } from "../../services/firebase";
-import { Button, Container, Form, Input, Services, Submit, Wrapper } from "./styled";
+import { Button, Container, Services, Terms, Title, Wrapper } from "./styled";
 
 export default function Authentication() {
   return (
     <Container>
       <Wrapper>
+        <Title>To continue, log in to Taskingo.</Title>
         <Services>
           <Button onClick={() => RegisterAccount(SignInMethods.FACEBOOK)}>
             <i className="fa-brands fa-facebook-f"></i>
@@ -25,12 +27,16 @@ export default function Authentication() {
             <p>Continue Anonymous</p>
           </Button>
         </Services>
-        <span className="or">OR</span>
-        <Form>
-          <Input placeholder="Email" />
-          <Input placeholder="Password" />
-          <Submit>Register</Submit>
-        </Form>
+        <Terms>
+          <p>
+            By clicking on sign-up, you agree to Taskingo{" "}
+            <Link to="/end-user-agreement">Terms and Conditions of Use.</Link>
+          </p>
+          <p>
+            To learn more about how Taskingo collects, uses, shares and protects your personal data, please see
+            Taskingo's <Link to="/privacy-policy">Privacy Policy</Link>.
+          </p>
+        </Terms>
       </Wrapper>
     </Container>
   );

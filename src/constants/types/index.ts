@@ -15,7 +15,9 @@ export interface RoutesProps {
 export interface AppProviderProps {
   uid: string;
   boards: AppProviderPropsBoards[];
-  columns: AppProviderPropsColumns[];
+  columns?: {
+    [key: string]: AppProviderPropsColumns;
+  };
 }
 export interface AppProviderPropsColumns {
   title: string;

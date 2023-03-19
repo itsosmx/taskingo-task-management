@@ -27,7 +27,11 @@ export default function Provider({ ...props }: React.PropsWithChildren) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), (response) => {
-      response ? setUser(response) : setUser(null);
+      if (response) setUser(response);
+      else {
+        setDate(initialization);
+        setUser(null);
+      }
     });
     return unsubscribe;
   }, []);
@@ -73,5 +77,5 @@ export default function Provider({ ...props }: React.PropsWithChildren) {
 const initialization: AppProviderProps = {
   uid: "",
   boards: [],
-  columns: [],
+  columns: {},
 };
