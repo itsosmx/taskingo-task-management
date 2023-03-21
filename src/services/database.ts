@@ -6,12 +6,11 @@ export async function getCurrentUser(uid: string, onChange: (snapshot: DataSnaps
     const db = getDatabase();
     const _ref = ref(db, `users/${uid}`);
     const _data = await get(_ref);
-    if (!_data) return onError ? onError("No data found.") : null;
+    if (!_data.exists()) return onError ? onError("No data found.") : null;
     const unsubscribe = onValue(_ref, onChange);
-    const data = _data.val();
     return {
       unsubscribe,
-      data,
+      data: _data.val(),
     };
   } catch (error) {
     console.log(error);
@@ -24,12 +23,28 @@ export async function createUser(uid: string, onError?: (error: unknown) => unkn
     const db = getDatabase();
     const _ref = ref(db, `users/${uid}`);
     const _data = await get(_ref);
-    if (_data) return;
+    if (_data.exists()) return;
     return set(_ref, {
       uid,
       createdAt: Date.now(),
-      boards: [],
-      columns: [],
+      boards: {},
+      columns: {
+        default_todo: {
+          id: "default_todo",
+          title: "ToDo",
+          boardSlug: "*",
+        },
+        default_doing: {
+          id: "default_doing",
+          title: "Doing",
+          boardSlug: "*",
+        },
+        default_done: {
+          id: "default_done",
+          title: "Done",
+          boardSlug: "*",
+        },
+      },
     });
   } catch (error) {
     console.log(error);

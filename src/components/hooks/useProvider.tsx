@@ -1,5 +1,5 @@
 import React from "react";
-import { AppProviderPropsColumns } from "../../constants/types";
+import { AppProviderPropsBoards, AppProviderPropsColumns } from "../../constants/types";
 import { pushData } from "../../services/database";
 import { AppProviderContext } from "../contexts/Provider";
 
@@ -8,6 +8,10 @@ export default function useProvider() {
 
   async function addColumn(data: AppProviderPropsColumns) {
     provider.setDate((state) => ({ ...state, columns: { ...state.columns, data } }));
+    await pushData("/columns", data, console.log);
+  }
+  async function addBoard(data: AppProviderPropsBoards) {
+    provider.setDate((state) => ({ ...state, boards: { ...state.boards, data } }));
     await pushData("/columns", data, console.log);
   }
   function deleteColumn(id: string) {

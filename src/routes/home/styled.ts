@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Container = styled.div((props) => ({
@@ -12,7 +13,7 @@ export const Wrapper = styled.div`
     "sidebar sidebar main main main main main main main"
     "sidebar sidebar main main main main main main main";
 `;
-export const Body = styled.div`
+export const Body = styled(motion.div)`
   grid-area: main;
   padding: 1rem;
   display: flex;
@@ -45,7 +46,7 @@ export const NewColumn = styled.div`
     border-color: ${(props) => props.theme.secondary};
   }
 `;
-export const Column = styled.div`
+export const Column = styled(motion.div)`
   min-width: 350px;
   max-width: 350px;
   padding: 1rem;
@@ -58,6 +59,7 @@ export const ColumnHeader = styled.div`
   color: ${(props) => props.theme.primaryText};
 
   p {
+    text-transform: uppercase;
     font-weight: bold;
   }
 `;
@@ -67,7 +69,7 @@ export const HeaderColor = styled.div`
   height: 1rem;
   border-radius: 50%;
 `;
-export const Row = styled.div`
+export const Row = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 1rem;

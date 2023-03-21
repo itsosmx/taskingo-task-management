@@ -76,6 +76,6 @@ export default function Provider({ ...props }: React.PropsWithChildren) {
 }
 const initialization: AppProviderProps = {
   uid: "",
-  boards: [],
+  boards: {},
   columns: {},
 };

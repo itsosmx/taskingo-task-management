@@ -36,18 +36,8 @@ export default function Sidebar() {
   function onSave() {
     if (!nameRef.current.value) return console.log("sda?");
     const slug = nameRef.current.value.toLowerCase().replace(" ", "-");
-    const search = data.boards.find((x) => x.slug === slug);
+    const search = data?.boards ? Object.values(data?.boards).find((x) => x.slug === slug) : false;
     if (search) return toast.error("Board with this name already exist.");
-    setDate((state) => ({
-      ...state,
-      boards: [
-        ...state.boards,
-        {
-          name: nameRef.current.value,
-          slug,
-        },
-      ],
-    }));
     nameRef.current.value = "";
     changeModalVisible();
   }
@@ -57,7 +47,7 @@ export default function Sidebar() {
       <Wrapper>
         <div>
           <Title>Taskingo</Title>
-          <BoardsTitle>All Boards ( {data.boards.length} )</BoardsTitle>
+          <BoardsTitle>All Boards ( {data?.boards ? Object.keys(data?.boards).length : 0} )</BoardsTitle>
           <BoardsAddButton onClick={changeModalVisible}>
             <i className="fa-solid fa-folder-plus"></i>
             <p>Create New Board</p>
@@ -65,16 +55,17 @@ export default function Sidebar() {
         </div>
         <BoardsContainer>
           <BoardsItems>
-            {data.boards.map((item) => (
-              <BoardButton
-                className={searchParams.get("board") === item.slug ? "active" : ""}
-                to={`?board=${item.slug}`}
-                key={item.slug}
-              >
-                <i className="fa-regular fa-folder"></i>
-                <p>{item.name}</p>
-              </BoardButton>
-            ))}
+            {data?.boards &&
+              Object.values(data?.boards).map((item) => (
+                <BoardButton
+                  className={searchParams.get("board") === item.slug ? "active" : ""}
+                  to={`?board=${item.slug}`}
+                  key={item.slug}
+                >
+                  <i className="fa-regular fa-folder"></i>
+                  <p>{item.name}</p>
+                </BoardButton>
+              ))}
           </BoardsItems>
         </BoardsContainer>
         <Actions>

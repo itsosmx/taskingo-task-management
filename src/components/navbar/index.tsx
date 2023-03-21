@@ -13,7 +13,8 @@ export default function Navbar() {
   const [visible, setVisible] = React.useState(false);
 
   React.useEffect(() => {
-    const target = data?.boards?.find((x) => x.slug === searchParams.get("board"));
+    if (!data?.boards) return;
+    const target = Object.values(data?.boards).find((x) => x.slug === searchParams.get("board"));
     setCurrent(target);
   }, [searchParams, data]);
 

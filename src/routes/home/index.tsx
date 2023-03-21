@@ -57,9 +57,51 @@ export default function Home() {
     addColumn({
       title: form.current.value,
       id: form.current.value?.toLowerCase().replace(" ", "-"),
+      boardSlug: current.slug,
     });
   }
-  console.log(data);
+
+  function _renderTask(task) {
+    return (
+      <Task onClick={() => onActiveTask(task.id)} key={task.id}>
+        <TaskTitle>{task.title}</TaskTitle>
+        <SubTitle>
+          {task.subtasks?.length
+            ? `${task.subtasks?.filter((x) => x.status).length} of ${task.subtasks?.length} subtasks`
+            : "No subtasks"}
+        </SubTitle>
+        {
+          <TaskBody className={task.id === active ? "active" : ""}>
+            <TaskDescription>{task.description}</TaskDescription>
+            <Subtasks>
+              {task.subtasks?.map((subtask) => (
+                <SubtaskCard checked={subtask.status} key={subtask.id}>
+                  <p>{subtask.content}</p>
+                  <SubtaskCheckbox type="checkbox" name="" id="" checked={subtask.status} />
+                  <span>{new Date(subtask.updateAt).toUTCString()}</span>
+                </SubtaskCard>
+              ))}
+            </Subtasks>
+          </TaskBody>
+        }
+      </Task>
+    );
+  }
+  function _renderColumn(item) {
+    return (
+      <Column {...animations} key={data?.columns[item].id}>
+        <ColumnHeader>
+          <HeaderColor />
+          <p>{data?.columns[item].title}</p>
+        </ColumnHeader>
+        <Row>
+          {current?.tasks &&
+            current?.tasks.length !== 0 &&
+            current?.tasks.filter((x) => x.status === data?.columns[item].id).map(_renderTask)}
+        </Row>
+      </Column>
+    );
+  }
 
   return (
     <Container>
@@ -67,45 +109,7 @@ export default function Home() {
         <Navbar />
         <Sidebar />
         <Body ref={ref}>
-          {data?.columns &&
-            Object.keys(data?.columns).map((item) => (
-              <Column key={data?.columns[item].id}>
-                <ColumnHeader>
-                  <HeaderColor />
-                  <p>{data?.columns[item].title}</p>
-                </ColumnHeader>
-                <Row>
-                  {current?.tasks &&
-                    current?.tasks.length !== 0 &&
-                    current?.tasks
-                      .filter((x) => x.status === data?.columns[item].id)
-                      .map((task) => (
-                        <Task onClick={() => onActiveTask(task.id)} key={task.id}>
-                          <TaskTitle>{task.title}</TaskTitle>
-                          <SubTitle>
-                            {task.subtasks?.length
-                              ? `${task.subtasks?.filter((x) => x.status).length} of ${task.subtasks?.length} subtasks`
-                              : "No subtasks"}
-                          </SubTitle>
-                          {
-                            <TaskBody className={task.id === active ? "active" : ""}>
-                              <TaskDescription>{task.description}</TaskDescription>
-                              <Subtasks>
-                                {task.subtasks?.map((subtask) => (
-                                  <SubtaskCard checked={subtask.status} key={subtask.id}>
-                                    <p>{subtask.content}</p>
-                                    <SubtaskCheckbox type="checkbox" name="" id="" checked={subtask.status} />
-                                    <span>{new Date(subtask.updateAt).toUTCString()}</span>
-                                  </SubtaskCard>
-                                ))}
-                              </Subtasks>
-                            </TaskBody>
-                          }
-                        </Task>
-                      ))}
-                </Row>
-              </Column>
-            ))}
+          {current && data?.columns && Object.keys(data?.columns).map(_renderColumn)}
           <NewColumn onClick={onAddColumn}>
             <i className="fa-solid fa-plus"></i>
             <p>Add New Column</p>
@@ -125,3 +129,15 @@ export default function Home() {
     </Container>
   );
 }
+
+const animations = {
+  whileInView: {
+    opacity: [0, 0, 1],
+  },
+  initial: {
+    opacity: 0,
+  },
+  transition: {
+    duration: 1,
+  },
+};

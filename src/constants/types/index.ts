@@ -14,7 +14,9 @@ export interface RoutesProps {
 
 export interface AppProviderProps {
   uid: string;
-  boards: AppProviderPropsBoards[];
+  boards?: {
+    [key: string]: AppProviderPropsBoards;
+  };
   columns?: {
     [key: string]: AppProviderPropsColumns;
   };
@@ -22,6 +24,7 @@ export interface AppProviderProps {
 export interface AppProviderPropsColumns {
   title: string;
   id: string;
+  boardSlug: string;
 }
 export interface AppProviderPropsBoards {
   name: string;

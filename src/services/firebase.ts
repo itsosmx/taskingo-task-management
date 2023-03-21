@@ -49,8 +49,8 @@ export async function RegisterAccount(
     }
     if (provider) {
       return signInWithPopup(auth, provider)
-        .then((response) => createUser(response.user.uid).then((e) => console.log(e)))
-        .then((e) => console.log(e))
+        .then((response) => createUser(response.user.uid))
+        .then(() => console.log("account created."))
         .catch(onError);
     }
   } catch (error) {
