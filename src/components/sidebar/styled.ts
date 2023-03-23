@@ -84,10 +84,11 @@ export const Input = styled.input`
   color: ${(props) => props.theme.text};
   outline: none;
 `;
-export const Button = styled.div<{ add?: boolean }>`
-  background-color: ${(props) => (props?.add ? props.theme.secondary : props.theme.red)};
+export const Button = styled.button<{ submit?: boolean }>`
+  background-color: ${(props) => (props?.submit ? props.theme.secondary : props.theme.red)};
+  color: ${(props) => props.theme.text};
   text-align: center;
-  padding: 0.4rem;
+  padding: 0.5rem;
   border-radius: 1rem;
   cursor: pointer;
   transition: 500ms;

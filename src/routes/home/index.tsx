@@ -37,7 +37,7 @@ export default function Home() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const target = data?.boards?.find((x) => x.slug === searchParams.get("board"));
+    const target = Object.values(data?.boards)?.find((x) => x.slug === searchParams.get("board"));
     setCurrent(target);
   }, [searchParams, data]);
 
@@ -48,17 +48,23 @@ export default function Home() {
 
   function onAddColumn() {
     if (!user?.uid) return toast.error("You have to Sign In first!");
+    if (!data?.boards.length || !current) return toast.error("You have to create a board first!");
     setVisible((state) => !state);
   }
 
-  function onSave() {
-    if (!data?.boards.length || !current) return toast.error("You have to create a board first!");
+  function handleSubmit(event: any) {
     if (!form.current.value) return;
     addColumn({
       title: form.current.value,
       id: form.current.value?.toLowerCase().replace(" ", "-"),
       boardSlug: current.slug,
     });
+  }
+
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      handleSubmit(event);
+    }
   }
 
   function _renderTask(task) {
@@ -117,10 +123,10 @@ export default function Home() {
         </Body>
       </Wrapper>
       <Modal visible={visible} setVisible={setVisible}>
-        <ModalContainer>
+        <ModalContainer onSubmit={handleSubmit} onKeyDown={handleKeyPress}>
           <p>Add New Column</p>
           <Input ref={form} placeholder="Column Title" />
-          <Button onClick={onSave} add>
+          <Button onClick={handleSubmit} add>
             Add
           </Button>
           <Button onClick={onAddColumn}>Cancel</Button>

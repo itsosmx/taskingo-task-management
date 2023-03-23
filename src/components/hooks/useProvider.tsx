@@ -12,11 +12,11 @@ export default function useProvider() {
   }
   async function addBoard(data: AppProviderPropsBoards) {
     provider.setDate((state) => ({ ...state, boards: { ...state.boards, data } }));
-    await pushData("/columns", data, console.log);
+    await pushData("/boards", data, console.log);
   }
   function deleteColumn(id: string) {
     // provider.setDate((state) => ({ ...state, columns: state.columns.filter((x) => x.id !== id) }));
   }
 
-  return { ...provider, addColumn, deleteColumn };
+  return { ...provider, addColumn, deleteColumn, addBoard };
 }

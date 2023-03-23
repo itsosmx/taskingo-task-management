@@ -23,7 +23,7 @@ import { signOutUser } from "../../services/firebase";
 import { useTheme } from "styled-components";
 
 export default function Sidebar() {
-  const { data, setDate, user, settings, setSettings } = useProvider();
+  const { data, user, settings, setSettings, addBoard } = useProvider();
   const nameRef = useRef<any>();
   const [searchParams] = useSearchParams();
   const [visible, setVisible] = useState(false);
@@ -33,12 +33,18 @@ export default function Sidebar() {
     if (!user?.uid) return toast.error("You have to Sign In first!");
     setVisible((state) => !state);
   }
-  function onSave() {
-    if (!nameRef.current.value) return console.log("sda?");
+
+  async function handleSubmit() {
+    if (!nameRef.current.value) return;
     const slug = nameRef.current.value.toLowerCase().replace(" ", "-");
     const search = data?.boards ? Object.values(data?.boards).find((x) => x.slug === slug) : false;
     if (search) return toast.error("Board with this name already exist.");
     nameRef.current.value = "";
+    await addBoard({
+      slug,
+      tasks: {},
+      name: nameRef.current.value,
+    });
     changeModalVisible();
   }
 
@@ -97,7 +103,7 @@ export default function Sidebar() {
         <ModalContent>
           <h3>Add New Board</h3>
           <Input autoFocus ref={nameRef} placeholder="Board Name" />
-          <Button add onClick={onSave}>
+          <Button submit onClick={handleSubmit}>
             Add
           </Button>
           <Button onClick={changeModalVisible}>Cancel</Button>

@@ -146,7 +146,7 @@ export const SubtaskCheckbox = styled.input`
   gap: 0.5em;
 `;
 
-export const ModalContainer = styled.div`
+export const ModalContainer = styled.form`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

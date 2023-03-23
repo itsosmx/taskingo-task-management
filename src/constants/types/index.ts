@@ -29,7 +29,9 @@ export interface AppProviderPropsColumns {
 export interface AppProviderPropsBoards {
   name: string;
   slug: string;
-  tasks?: AppProviderPropsBoardTasks[];
+  tasks?: {
+    [key: string]: AppProviderPropsBoardTasks;
+  };
 }
 interface AppProviderPropsBoardTasks {
   title: string;
