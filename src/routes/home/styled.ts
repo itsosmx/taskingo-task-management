@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { RandomColor } from "../../utils";
 
 export const Container = styled.div((props) => ({
   height: "100vh",
@@ -17,7 +19,7 @@ export const Body = styled(motion.div)`
   grid-area: main;
   padding: 1rem;
   display: flex;
-  overflow-x: auto;
+  overflow-x: scroll;
   ::-webkit-scrollbar {
     height: 0.5rem;
     width: 0.5rem;
@@ -176,4 +178,39 @@ export const Input = styled.input`
   border-radius: 1rem;
   color: ${(props) => props.theme.text};
   outline: none;
+`;
+
+export const NoBoards = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 1rem;
+
+`;
+export const Board = styled(Link)`
+  width: 250px;
+  height: 150px;
+  background-color: ${(props) => props.theme.primary};
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  transition: 500ms;
+  border: 2px solid ${(props) => props.theme.lightPrimary};
+  border-radius: 1rem;
+
+  :hover {
+    filter: brightness(0.9);
+    transform: scale(1.05);
+  }
+
+  i {
+    padding: 1rem;
+    background-color: ${(props) => props.theme.darkPrimary};
+    border-radius: 50%;
+  }
+  p {
+    color: ${(props) => props.theme.text};
+  }
 `;

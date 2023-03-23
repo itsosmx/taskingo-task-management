@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   justify-content: space-between;
 `;
 export const Title = styled.h2``;
-export const Button = styled.button`
+export const AddButton = styled.button`
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -66,4 +66,11 @@ export const SignOut = styled.button`
     cursor: not-allowed;
     opacity: 0.4;
   }
+`;
+
+export const Form = styled.form`
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;

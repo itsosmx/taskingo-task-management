@@ -21,6 +21,7 @@ import { useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { signOutUser } from "../../services/firebase";
 import { useTheme } from "styled-components";
+import { AppProviderPropsBoards } from "../../constants/types";
 
 export default function Sidebar() {
   const { data, user, settings, setSettings, addBoard } = useProvider();
@@ -39,13 +40,32 @@ export default function Sidebar() {
     const slug = nameRef.current.value.toLowerCase().replace(" ", "-");
     const search = data?.boards ? Object.values(data?.boards).find((x) => x.slug === slug) : false;
     if (search) return toast.error("Board with this name already exist.");
-    nameRef.current.value = "";
     await addBoard({
       slug,
       tasks: {},
       name: nameRef.current.value,
     });
     changeModalVisible();
+    nameRef.current.value = "";
+  }
+
+  function _renderBoards(item: AppProviderPropsBoards) {
+    return (
+      <BoardButton
+        className={searchParams.get("board") === item.slug ? "active" : ""}
+        to={`?board=${item.slug}`}
+        key={item.slug}
+      >
+        <i className="fa-regular fa-folder"></i>
+        <p>{item.name}</p>
+      </BoardButton>
+    );
+  }
+
+  function handleKeyPress(event: any) {
+    if (event.key === "Enter") {
+      handleSubmit();
+    }
   }
 
   return (
@@ -61,17 +81,8 @@ export default function Sidebar() {
         </div>
         <BoardsContainer>
           <BoardsItems>
-            {data?.boards &&
-              Object.values(data?.boards).map((item) => (
-                <BoardButton
-                  className={searchParams.get("board") === item.slug ? "active" : ""}
-                  to={`?board=${item.slug}`}
-                  key={item.slug}
-                >
-                  <i className="fa-regular fa-folder"></i>
-                  <p>{item.name}</p>
-                </BoardButton>
-              ))}
+            {_renderBoards({ slug: "", name: "Home" })}
+            {data?.boards && Object.values(data?.boards).map(_renderBoards)}
           </BoardsItems>
         </BoardsContainer>
         <Actions>
@@ -102,7 +113,7 @@ export default function Sidebar() {
       <Modal visible={visible} setVisible={setVisible}>
         <ModalContent>
           <h3>Add New Board</h3>
-          <Input autoFocus ref={nameRef} placeholder="Board Name" />
+          <Input onKeyDown={handleKeyPress} autoFocus ref={nameRef} placeholder="Board Name" />
           <Button submit onClick={handleSubmit}>
             Add
           </Button>

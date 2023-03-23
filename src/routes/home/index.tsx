@@ -1,7 +1,7 @@
 //@ts-nocheck
 
 import { useSearchParams } from "react-router-dom";
-import { Modal, Navbar, Sidebar, TextInput, useHorizontalScroll, useProvider } from "../../components";
+import { Modal, Navbar, Sidebar, useHorizontalScroll, useProvider } from "../../components";
 import {
   Container,
   Wrapper,
@@ -22,14 +22,17 @@ import {
   ModalContainer,
   Button,
   Input,
+  NoBoards,
+  Board,
 } from "./styled";
 import { useEffect, useState, useRef } from "react";
 import { AppProviderPropsBoards } from "../../constants/types";
 import { toast } from "react-toastify";
+import { RandomColor } from "../../utils";
 
 export default function Home() {
   const { data, addColumn, user } = useProvider();
-  const ref = useHorizontalScroll();
+  const containerRef = useRef();
   const form = useRef<HTMLInputElement | any>();
   const [searchParams] = useSearchParams();
   const [current, setCurrent] = useState<AppProviderPropsBoards>();
@@ -46,7 +49,7 @@ export default function Home() {
     setActive(id);
   }
 
-  function onAddColumn() {
+  function handleAddingNewColumn() {
     if (!user?.uid) return toast.error("You have to Sign In first!");
     if (!data?.boards.length || !current) return toast.error("You have to create a board first!");
     setVisible((state) => !state);
@@ -93,33 +96,58 @@ export default function Home() {
       </Task>
     );
   }
+
   function _renderColumn(item) {
     return (
-      <Column {...animations} key={data?.columns[item].id}>
+      <Column {...animations} key={item.id}>
         <ColumnHeader>
           <HeaderColor />
-          <p>{data?.columns[item].title}</p>
+          <p>{item.title}</p>
         </ColumnHeader>
         <Row>
           {current?.tasks &&
             current?.tasks.length !== 0 &&
-            current?.tasks.filter((x) => x.status === data?.columns[item].id).map(_renderTask)}
+            current?.tasks.filter((x) => x.status === item.id).map(_renderTask)}
         </Row>
       </Column>
     );
   }
+  function _renderBoards(item: AppProviderPropsBoards) {
+    return (
+      <Board to={`?board=${item.slug}`}>
+        <i style={{ color: RandomColor() }} className="fa-regular fa-folder"></i>
+        <p>{item.name}</p>
+      </Board>
+    );
+  }
+
+  const handleWheel = (event) => {
+    const container = containerRef.current;
+    const containerScrollPosition = container.scrollLeft;
+    container.scrollTo({
+      top: 0,
+      left: containerScrollPosition + event.deltaY,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <Container>
       <Wrapper>
         <Navbar />
         <Sidebar />
-        <Body ref={ref}>
-          {current && data?.columns && Object.keys(data?.columns).map(_renderColumn)}
-          <NewColumn onClick={onAddColumn}>
-            <i className="fa-solid fa-plus"></i>
-            <p>Add New Column</p>
-          </NewColumn>
+        <Body onWheel={handleWheel} ref={containerRef}>
+          {current ? (
+            <>
+              {data?.columns && Object.values(data?.columns).map(_renderColumn)}
+              <NewColumn onClick={handleAddingNewColumn}>
+                <i className="fa-solid fa-plus"></i>
+                <p>Add New Column</p>
+              </NewColumn>
+            </>
+          ) : (
+            <NoBoards>{data?.boards ? Object.values(data?.boards).map(_renderBoards) : <>No</>}</NoBoards>
+          )}
         </Body>
       </Wrapper>
       <Modal visible={visible} setVisible={setVisible}>
@@ -129,7 +157,7 @@ export default function Home() {
           <Button onClick={handleSubmit} add>
             Add
           </Button>
-          <Button onClick={onAddColumn}>Cancel</Button>
+          <Button onClick={handleAddingNewColumn}>Cancel</Button>
         </ModalContainer>
       </Modal>
     </Container>

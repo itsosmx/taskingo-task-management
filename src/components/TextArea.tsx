@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   ref?: any;
   label?: string;
 }
 
-export default function TextInput({ ref, label, ...props }: TextInputProps) {
+export default function TextArea({ ref, label, ...props }: TextAreaProps) {
   return (
     <Container>
       <p>{label}</p>
@@ -26,7 +26,7 @@ const Container = styled.div`
     margin: 0 0.2rem;
   }
 `;
-const Input = styled.input`
+const Input = styled.textarea`
   color: ${(props) => props.theme.text};
   background-color: ${(props) => props.theme.primary};
   border: 1px solid ${(props) => props.theme.lightPrimary};
