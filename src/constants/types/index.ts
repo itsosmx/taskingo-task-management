@@ -33,9 +33,9 @@ export interface AppProviderPropsBoards {
     [key: string]: AppProviderPropsBoardTasks;
   };
 }
-interface AppProviderPropsBoardTasks {
-  title: string;
+export interface AppProviderPropsBoardTasks {
   id: string;
+  title: string;
   description: string;
   subtasks?: AppProviderPropsBoardSubtasks[];
   status: string;

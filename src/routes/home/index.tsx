@@ -106,8 +106,9 @@ export default function Home() {
         </ColumnHeader>
         <Row>
           {current?.tasks &&
-            current?.tasks.length !== 0 &&
-            current?.tasks.filter((x) => x.status === item.id).map(_renderTask)}
+            Object.values(current?.tasks)
+              .filter((x) => x.status === item.id)
+              .map(_renderTask)}
         </Row>
       </Column>
     );

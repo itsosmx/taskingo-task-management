@@ -1,5 +1,5 @@
 import React from "react";
-import { AppProviderPropsBoards, AppProviderPropsColumns } from "../../constants/types";
+import { AppProviderPropsBoards, AppProviderPropsBoardTasks, AppProviderPropsColumns } from "../../constants/types";
 import { pushData } from "../../services/database";
 import { AppProviderContext } from "../contexts/Provider";
 
@@ -14,9 +14,23 @@ export default function useProvider() {
     provider.setDate((state) => ({ ...state, boards: { ...state.boards, data } }));
     await pushData("/boards", data, console.log);
   }
-  function deleteColumn(id: string) {
-    // provider.setDate((state) => ({ ...state, columns: state.columns.filter((x) => x.id !== id) }));
+  async function addTask(id: string, data: AppProviderPropsBoardTasks) {
+    // provider.setDate((state) => ({
+    //   ...state,
+    //   //@ts-ignore
+    //   boards: {
+    //     ...state.boards,
+    //     [id]: {
+    //       ...state.boards[id],
+    //       tasks: {
+    //         ...state.boards[id].tasks,
+    //         data,
+    //       },
+    //     },
+    //   },
+    // }));
+    await pushData(`/boards/${id}/tasks`, data, console.log);
   }
 
-  return { ...provider, addColumn, deleteColumn, addBoard };
+  return { ...provider, addColumn, addBoard, addTask };
 }

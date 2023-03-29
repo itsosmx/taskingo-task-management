@@ -97,13 +97,12 @@ export const SubTitle = styled.div`
 export const TaskBody = styled.div`
   overflow: auto;
   resize: vertical;
-  height: 0;
   overflow: hidden;
+  height: 0px;
   padding: 0;
   transition: height 500ms;
   &.active {
     height: 200px;
-    min-height: 200px;
   }
 `;
 export const TaskDescription = styled.div`
@@ -185,7 +184,6 @@ export const NoBoards = styled.div`
   flex-wrap: wrap;
   align-content: flex-start;
   gap: 1rem;
-
 `;
 export const Board = styled(Link)`
   width: 250px;
