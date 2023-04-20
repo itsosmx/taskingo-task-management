@@ -1,7 +1,6 @@
 //@ts-nocheck
-
 import { useSearchParams } from "react-router-dom";
-import { Modal, Navbar, Sidebar, useHorizontalScroll, useProvider } from "../../components";
+import { Modal, Navbar, Sidebar, useProvider } from "../../components";
 import {
   Container,
   Wrapper,
@@ -13,11 +12,6 @@ import {
   TaskTitle,
   TaskDescription,
   HeaderColor,
-  TaskBody,
-  SubTitle,
-  Subtasks,
-  SubtaskCard,
-  SubtaskCheckbox,
   NewColumn,
   ModalContainer,
   Button,
@@ -28,26 +22,31 @@ import {
 import { useEffect, useState, useRef } from "react";
 import { AppProviderPropsBoards } from "../../constants/types";
 import { toast } from "react-toastify";
-import { RandomColor } from "../../utils";
+import { NormalizeObject, RandomColor } from "../../utils";
+import Draggable from "react-draggable";
 
 export default function Home() {
-  const { data, addColumn, user } = useProvider();
-  const containerRef = useRef();
+  const { data, addColumn, user, updateTask } = useProvider();
+  const containerRef = useRef<any>();
   const form = useRef<HTMLInputElement | any>();
   const [searchParams] = useSearchParams();
   const [current, setCurrent] = useState<AppProviderPropsBoards>();
-  const [active, setActive] = useState("");
   const [visible, setVisible] = useState(false);
+  const [dragging, setDragging] = useState({
+    id: "",
+    state: "",
+  });
 
   useEffect(() => {
-    const target = Object.values(data?.boards)?.find((x) => x.slug === searchParams.get("board"));
-    setCurrent(target);
+    if (!data?.boards) return;
+    const obj = NormalizeObject(data?.boards);
+    const target = Object.values(obj)?.find((x) => x.slug === searchParams.get("board"));
+    if (!target) return setCurrent(null);
+    setCurrent({
+      ...target,
+      tasks: NormalizeObject(target.tasks),
+    });
   }, [searchParams, data]);
-
-  function onActiveTask(id: string) {
-    if (active === id) return setActive("");
-    setActive(id);
-  }
 
   function handleAddingNewColumn() {
     if (!user?.uid) return toast.error("You have to Sign In first!");
@@ -70,36 +69,16 @@ export default function Home() {
     }
   }
 
-  function _renderTask(task) {
-    return (
-      <Task onClick={() => onActiveTask(task.id)} key={task.id}>
-        <TaskTitle>{task.title}</TaskTitle>
-        <SubTitle>
-          {task.subtasks?.length
-            ? `${task.subtasks?.filter((x) => x.status).length} of ${task.subtasks?.length} subtasks`
-            : "No subtasks"}
-        </SubTitle>
-        {
-          <TaskBody className={task.id === active ? "active" : ""}>
-            <TaskDescription>{task.description}</TaskDescription>
-            <Subtasks>
-              {task.subtasks?.map((subtask) => (
-                <SubtaskCard checked={subtask.status} key={subtask.id}>
-                  <p>{subtask.content}</p>
-                  <SubtaskCheckbox type="checkbox" name="" id="" checked={subtask.status} />
-                  <span>{new Date(subtask.updateAt).toUTCString()}</span>
-                </SubtaskCard>
-              ))}
-            </Subtasks>
-          </TaskBody>
-        }
-      </Task>
-    );
-  }
+  console.log(dragging);
 
-  function _renderColumn(item) {
+  function _renderColumn(item: any) {
     return (
-      <Column {...animations} key={item.id}>
+      <Column
+        onMouseOver={() => dragging.id && setDragging((state) => ({ ...state, state: item.id }))}
+        {...animations}
+        key={item.id}
+        className={dragging.id && "dragging"}
+      >
         <ColumnHeader>
           <HeaderColor />
           <p>{item.title}</p>
@@ -113,6 +92,26 @@ export default function Home() {
       </Column>
     );
   }
+
+  function _renderTask(task) {
+    return (
+      <Draggable
+        key={task._id}
+        onStart={() => setDragging((state) => ({ ...state, id: task._id }))}
+        onStop={async () => {
+          await updateTask(current?._id, dragging.id, {
+            status: dragging.state,
+          });
+          setDragging((state) => ({ ...state, id: null }));
+        }}
+      >
+        <Task>
+          <TaskTitle>{task.title}</TaskTitle>
+          <TaskDescription>{task.description}</TaskDescription>
+        </Task>
+      </Draggable>
+    );
+  }
   function _renderBoards(item: AppProviderPropsBoards) {
     return (
       <Board to={`?board=${item.slug}`}>
@@ -121,8 +120,7 @@ export default function Home() {
       </Board>
     );
   }
-
-  const handleWheel = (event) => {
+  const handleWheel = (event: any) => {
     const container = containerRef.current;
     const containerScrollPosition = container.scrollLeft;
     container.scrollTo({

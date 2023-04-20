@@ -23,11 +23,13 @@ export const Shadow = styled.div`
   height: 100px;
   background-image: linear-gradient(to top, ${(props) => props.theme.primary} 30%, transparent);
 `;
-export const Title = styled.h1((props) => ({
-  lineHeight: props.theme.navbarHeight,
-  textAlign: "center",
-  color: props.theme.secondary,
-}));
+
+export const Title = styled(Link)`
+  line-height: ${(props) => props.theme.navbarHeight};
+  color: ${(props) => props.theme.secondary};
+  text-align: center;
+`;
+
 export const BoardsContainer = styled.div`
   overflow-y: scroll;
   ::-webkit-scrollbar {

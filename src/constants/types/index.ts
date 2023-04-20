@@ -34,7 +34,7 @@ export interface AppProviderPropsBoards {
   };
 }
 export interface AppProviderPropsBoardTasks {
-  id: string;
+  _id?: string;
   title: string;
   description: string;
   subtasks?: AppProviderPropsBoardSubtasks[];

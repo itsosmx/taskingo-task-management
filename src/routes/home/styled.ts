@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { RandomColor } from "../../utils";
 
-export const Container = styled.div((props) => ({
-  height: "100vh",
-}));
+export const Container = styled.div`
+  height: 100dvh;
+`;
+
 export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(9, 1fr);
@@ -19,6 +19,7 @@ export const Body = styled(motion.div)`
   grid-area: main;
   padding: 1rem;
   display: flex;
+  gap: 1rem;
   overflow-x: scroll;
   ::-webkit-scrollbar {
     height: 0.5rem;
@@ -51,7 +52,24 @@ export const NewColumn = styled.div`
 export const Column = styled(motion.div)`
   min-width: 350px;
   max-width: 350px;
+  position: relative;
   padding: 1rem;
+
+  &.dragging {
+    ::after {
+      content: "drop here";
+      background-color: rgba(0, 0, 0, 0.1);
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px dashed ${(props) => props.theme.lightPrimary};
+    }
+  }
 `;
 export const ColumnHeader = styled.div`
   display: flex;
@@ -90,61 +108,11 @@ export const TaskTitle = styled.div`
   font-size: 0.9rem;
   font-weight: bold;
 `;
-export const SubTitle = styled.div`
-  color: ${(props) => props.theme.primaryText};
-  font-size: 0.8rem;
-`;
-export const TaskBody = styled.div`
-  overflow: auto;
-  resize: vertical;
-  overflow: hidden;
-  height: 0px;
-  padding: 0;
-  transition: height 500ms;
-  &.active {
-    height: 200px;
-  }
-`;
 export const TaskDescription = styled.div`
-  background-color: rgba(0, 0, 0, 0.07);
   color: ${(props) => props.theme.text};
   border-radius: 0.4rem;
-  font-size: 0.8rem;
-  padding: 0.5rem;
+  font-size: 0.7rem;
   margin-top: 0.5rem;
-`;
-export const Subtasks = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
-`;
-export const SubtaskCard = styled.div<any>`
-  background-color: ${(props) => props.theme.darkPrimary};
-  color: ${(props) => props.theme.text};
-  border-radius: 0.4rem;
-  font-size: 0.8rem;
-  padding: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-
-  p {
-    text-decoration: ${(props) => props.checked && "line-through"};
-  }
-  span {
-    color: ${(props) => props.theme.primaryText};
-    font-size: 0.6rem;
-    position: absolute;
-    top: -0.5rem;
-    right: 0;
-  }
-`;
-export const SubtaskCheckbox = styled.input`
-  font-size: 1rem;
-  display: grid;
-  grid-template-columns: 1em auto;
-  gap: 0.5em;
 `;
 
 export const ModalContainer = styled.form`

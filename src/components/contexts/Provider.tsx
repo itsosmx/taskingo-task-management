@@ -44,6 +44,8 @@ export default function Provider({ ...props }: React.PropsWithChildren) {
         user?.uid,
         (snap: any) => {
           _unsubscribe = unsubscribe;
+          console.log("updated..");
+
           if (snap) setDate({ ...initialization, ...snap.val() });
         },
         (error: any) => {

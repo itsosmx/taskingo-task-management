@@ -33,7 +33,6 @@ export default function Navbar() {
   function onSubmit(e: any) {
     e.preventDefault();
     const payload = {
-      id: uuidV4(),
       title: e.target.title.value,
       description: e.target.description.value,
       status: e.target.status.value,

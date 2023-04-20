@@ -72,7 +72,9 @@ export default function Sidebar() {
     <Container>
       <Wrapper>
         <div>
-          <Title>Taskingo</Title>
+          <Title to="/">
+            <h1>Taskingo</h1>
+          </Title>
           <BoardsTitle>All Boards ( {data?.boards ? Object.keys(data?.boards).length : 0} )</BoardsTitle>
           <BoardsAddButton onClick={changeModalVisible}>
             <i className="fa-solid fa-folder-plus"></i>
@@ -80,10 +82,7 @@ export default function Sidebar() {
           </BoardsAddButton>
         </div>
         <BoardsContainer>
-          <BoardsItems>
-            {_renderBoards({ slug: "", name: "Home" })}
-            {data?.boards && Object.values(data?.boards).map(_renderBoards)}
-          </BoardsItems>
+          <BoardsItems>{data?.boards && Object.values(data?.boards).map(_renderBoards)}</BoardsItems>
         </BoardsContainer>
         <Actions>
           {user && user?.uid && (
