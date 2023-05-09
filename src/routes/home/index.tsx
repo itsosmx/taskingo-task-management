@@ -7,8 +7,6 @@ import { toast } from "react-toastify";
 import { NormalizeObject } from "../../utils";
 import Column from "./column";
 
-
-
 export default function Home() {
   const { data, addColumn, user } = useProvider();
   const containerRef = useRef<any>();
@@ -58,8 +56,10 @@ export default function Home() {
     });
   };
 
+  const onDragEnd = () => {};
+
   return (
-    <Container onDragEnd={}>
+    <Container onDragEnd={onDragEnd}>
       <Wrapper>
         <Navbar />
         <Sidebar />
