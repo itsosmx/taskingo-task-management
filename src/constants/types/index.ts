@@ -17,7 +17,7 @@ export interface AppProviderProps {
   boards?: {
     [key: string]: AppProviderPropsBoards;
   };
-  columns?: {
+  columns: {
     [key: string]: AppProviderPropsColumns;
   };
 }

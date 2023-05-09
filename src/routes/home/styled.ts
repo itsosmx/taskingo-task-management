@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { DragDropContext } from "react-beautiful-dnd";
 
-export const Container = styled.div`
+export const Container = styled(DragDropContext)`
   height: 100dvh;
 `;
 
@@ -29,90 +30,6 @@ export const Body = styled(motion.div)`
   ::-webkit-scrollbar-thumb {
     background-color: ${(props) => props.theme.secondary};
   }
-`;
-export const NewColumn = styled.div`
-  min-width: 350px;
-  max-width: 350px;
-  padding: 1rem;
-  border: 2px dashed ${(props) => props.theme.text};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.primaryText};
-  gap: 0.5rem;
-  cursor: pointer;
-  transition: 500ms;
-
-  :hover {
-    filter: brightness(1.1);
-    border-color: ${(props) => props.theme.secondary};
-  }
-`;
-export const Column = styled(motion.div)`
-  min-width: 350px;
-  max-width: 350px;
-  position: relative;
-  padding: 1rem;
-
-  &.dragging {
-    ::after {
-      content: "drop here";
-      background-color: rgba(0, 0, 0, 0.1);
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 2px dashed ${(props) => props.theme.lightPrimary};
-    }
-  }
-`;
-export const ColumnHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  color: ${(props) => props.theme.primaryText};
-
-  p {
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-`;
-export const HeaderColor = styled.div`
-  background-color: ${(props) => props.theme.secondary};
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-`;
-export const Row = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-export const Task = styled.div`
-  background-color: ${(props) => props.theme.primary};
-  padding: 1rem;
-  border-radius: 1rem;
-  transition: 200ms;
-  :hover {
-    filter: brightness(0.95);
-    cursor: pointer;
-  }
-`;
-export const TaskTitle = styled.div`
-  font-size: 0.9rem;
-  font-weight: bold;
-`;
-export const TaskDescription = styled.div`
-  color: ${(props) => props.theme.text};
-  border-radius: 0.4rem;
-  font-size: 0.7rem;
-  margin-top: 0.5rem;
 `;
 
 export const ModalContainer = styled.form`
