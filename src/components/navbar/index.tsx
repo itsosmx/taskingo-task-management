@@ -61,7 +61,7 @@ export default function Navbar() {
             <i className="fa-solid fa-plus"></i>
             <p>Add New Task</p>
           </Button>
-          {!user && <SignIn onClick={() => setVisible(!visible)}>Sign In</SignIn>}
+          {!user && <Button onClick={() => setVisible(!visible)}>Sign In</Button>}
         </Actions>
       </Wrapper>
 

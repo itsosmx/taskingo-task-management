@@ -53,7 +53,7 @@ export default function Sidebar() {
     return (
       <BoardButton
         className={searchParams.get("board") === item.slug ? "active" : ""}
-        to={`?board=${item.slug}`}
+        to={`/board/${item.slug}`}
         key={item.slug}
       >
         <i className="fa-regular fa-folder"></i>

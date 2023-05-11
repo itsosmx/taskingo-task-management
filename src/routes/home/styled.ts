@@ -1,27 +1,15 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { DragDropContext } from "react-beautiful-dnd";
+import { Link } from "react-router-dom";
 
-export const Container = styled(DragDropContext)`
-  height: 100dvh;
+export const Container = styled.div`
+  height: 100%;
 `;
 
-export const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-auto-rows: 80px calc(50vh - 80px) calc(50vh);
-  grid-template-areas:
-    "sidebar sidebar navbar navbar navbar navbar navbar navbar navbar"
-    "sidebar sidebar main main main main main main main"
-    "sidebar sidebar main main main main main main main";
-`;
-export const Body = styled(motion.div)`
-  grid-area: main;
+export const Wrapper = styled(motion.div)`
   padding: 1rem;
   display: flex;
   gap: 1rem;
-  overflow-x: scroll;
   ::-webkit-scrollbar {
     height: 0.5rem;
     width: 0.5rem;
@@ -32,68 +20,39 @@ export const Body = styled(motion.div)`
   }
 `;
 
-export const ModalContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
-  p {
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-`;
-
-export const Button = styled.div<{ add?: boolean }>`
-  background-color: ${(props) => (props?.add ? props.theme.secondary : props.theme.red)};
-  text-align: center;
-  padding: 0.4rem;
-  border-radius: 1rem;
-  cursor: pointer;
-  transition: 500ms;
-  :hover {
-    filter: brightness(0.8);
-  }
-`;
-
-export const Input = styled.input`
-  background-color: ${(props) => props.theme.primary};
-  border: 1px solid ${(props) => props.theme.lightPrimary};
-  padding: 1rem 3rem;
-  border-radius: 1rem;
-  color: ${(props) => props.theme.text};
-  outline: none;
-`;
-
-export const NoBoards = styled.div`
+export const NoBoardsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-content: flex-start;
   gap: 1rem;
+  padding: 1rem;
+  align-items: baseline;
 `;
-export const Board = styled(Link)`
-  width: 250px;
-  height: 150px;
-  background-color: ${(props) => props.theme.primary};
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-  transition: 500ms;
-  border: 2px solid ${(props) => props.theme.lightPrimary};
+export const BoardCard = styled(Link)`
+  padding: 2rem;
   border-radius: 1rem;
-
+  display: flex;
+  flex-basis: 1;
+  flex-grow: 1;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  background-color: ${(props) => props.theme.primary};
+  border: 2px solid ${(props) => props.theme.lightPrimary};
   :hover {
     filter: brightness(0.9);
-    transform: scale(1.05);
   }
 
-  i {
-    padding: 1rem;
-    background-color: ${(props) => props.theme.darkPrimary};
-    border-radius: 50%;
-  }
   p {
-    color: ${(props) => props.theme.text};
+    font-weight: bold;
+  }
+  i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: rgba(0, 0, 0, 0.3);
   }
 `;

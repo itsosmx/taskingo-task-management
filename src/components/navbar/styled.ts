@@ -41,6 +41,7 @@ export const DeleteButton = styled.i`
 export const Actions = styled.div`
   display: flex;
   align-items: center;
+  gap: 1rem;
 `;
 
 export const SignIn = styled.button`
