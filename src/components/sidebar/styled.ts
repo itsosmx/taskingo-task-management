@@ -7,7 +7,7 @@ export const Container = styled.div`
   border-right: 1px ${(props) => props.theme.lightPrimary} solid;
   position: relative;
   grid-area: sidebar;
-  max-height: 100vh;
+  max-height: 100dvh;
 `;
 export const Wrapper = styled.div`
   display: grid;

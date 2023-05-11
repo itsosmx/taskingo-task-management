@@ -40,6 +40,8 @@ const Container = styled(motion.div)`
   &.active {
     display: flex;
   }
+
+  
 `;
 
 const Wrapper = styled.div`

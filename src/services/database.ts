@@ -33,16 +33,19 @@ export async function createUser(uid: string, onError?: (error: unknown) => unkn
           id: "default_todo",
           title: "ToDo",
           boardSlug: "*",
+          color: "rgb(77, 112, 179)",
         },
         default_doing: {
           id: "default_doing",
           title: "Doing",
           boardSlug: "*",
+          color: "rgb(77, 179, 107)",
         },
         default_done: {
           id: "default_done",
           title: "Done",
           boardSlug: "*",
+          color: "rgb(179, 77, 92)",
         },
       },
     });

@@ -8,7 +8,7 @@ export const routes: RoutesProps[] = [
   {
     name: "Home",
     component: Home,
-    path: "/*",
+    path: "/",
   },
   {
     name: "Agreement",

@@ -13,7 +13,7 @@ export default function Home() {
     console.log(item);
 
     return (
-      <BoardCard to={`?board=${item.slug}`} key={item.slug}>
+      <BoardCard to={`/board/${item.slug}`} key={item.slug}>
         <i style={{ backgroundColor: RandomColor() }} className="fa-regular fa-folder"></i>
         <p>{item.name}</p>
       </BoardCard>

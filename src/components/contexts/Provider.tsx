@@ -55,7 +55,7 @@ export default function Provider({ ...props }: React.PropsWithChildren) {
       if (data) setDate({ ...initialization, ..._data });
     })();
 
-    return () => _unsubscribe();
+    return () => _unsubscribe && _unsubscribe();
   }, [user]);
 
   React.useMemo(() => {

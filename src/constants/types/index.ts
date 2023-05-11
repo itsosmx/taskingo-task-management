@@ -25,6 +25,7 @@ export interface AppProviderPropsColumns {
   title: string;
   id: string;
   boardSlug: string;
+  color?: string;
 }
 export interface AppProviderPropsBoards {
   name: string;

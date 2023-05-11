@@ -24,7 +24,11 @@ export const Container = styled.div`
     }
   }
 `;
-export const Wrapper = styled.div``;
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
 export const Title = styled.div`
   text-transform: uppercase;
   color: ${(props) => props.theme.primaryText};
@@ -35,4 +39,10 @@ export const Content = styled.div`
   flex-direction: column;
   gap: 1rem;
   margin-top: 1rem;
+`;
+
+export const Color = styled.div`
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
 `;

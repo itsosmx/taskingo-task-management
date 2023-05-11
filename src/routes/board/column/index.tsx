@@ -1,17 +1,18 @@
-import { Container, Wrapper, Title, Content } from "./styled";
+import { Container, Header, Title, Content, Color } from "./styled";
 import Task from "../task";
 
 export default function Column({ data, state, ...props }: { data: any; state: any }) {
   return (
     <Container {...animations} {...props}>
-      <Wrapper>
+      <Header>
+        <Color style={{ backgroundColor: state.color }} />
         <Title>{state.title}</Title>
-      </Wrapper>
+      </Header>
       <Content>
         {data?.tasks &&
           Object.keys(data?.tasks)
             .filter((x) => data?.tasks[x]?.status === state.id)
-            .map((task) => <Task item={data?.tasks[task]} key={task} />)}
+            .map((task) => <Task color={state.color} item={data?.tasks[task]} key={task} />)}
       </Content>
     </Container>
   );
@@ -28,3 +29,5 @@ const animations = {
     duration: 1,
   },
 };
+
+

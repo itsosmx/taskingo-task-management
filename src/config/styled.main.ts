@@ -12,11 +12,20 @@ export const Main = styled.main`
   position: relative;
   display: grid;
   grid-template-columns: repeat(9, 1fr);
-  grid-auto-rows: 80px calc(50vh - 80px) 50vh;
+  grid-template-rows: 80px calc(50vh - 80px) 50vh;
   grid-template-areas:
     "sidebar sidebar navbar navbar navbar navbar navbar navbar navbar"
     "sidebar sidebar main main main main main main main"
     "sidebar sidebar main main main main main main main";
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content 80px max-content;
+    grid-template-areas:
+      "sidebar"
+      "navbar"
+      "main";
+  }
 `;
 
 export const Body = styled.div`
@@ -32,6 +41,10 @@ export const Body = styled.div`
   ::-webkit-scrollbar-thumb {
     background-color: ${(props) => props.theme.secondary};
     border-radius: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    height: max-content;
   }
 `;
 export const ToastContainer = styled(RawToastContainer)``;

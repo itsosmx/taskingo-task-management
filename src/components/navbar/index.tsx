@@ -1,15 +1,15 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import Authentication from "../authentication";
 import useProvider from "../hooks/useProvider";
 import Modal from "../Modal";
 import { TextArea, TextInput, Select, Button } from "..";
-import { Container, Wrapper, Actions, SignIn, Form, Header, DeleteButton, Alert } from "./styled";
+import { Container, Wrapper, Actions, Form, Header, DeleteButton, Alert } from "./styled";
 import { remove } from "../../services/database";
 
 export default function Navbar() {
   const { data, user, addTask } = useProvider();
-  const [searchParams] = useSearchParams();
+  const location = useLocation();
   const [current, setCurrent] = React.useState<any>(null);
   const [visible, setVisible] = React.useState(false);
   const [visibleTask, setVisibleTask] = React.useState(false);
@@ -19,19 +19,20 @@ export default function Navbar() {
     setVisibleTask((state) => !state);
   };
 
-  React.useEffect(() => {
-    if (!data?.boards) return;
-    const slug = searchParams.get("board");
-    console.log("saD??", slug);
-    if (!slug) return setCurrent(null);
+  React.useMemo(() => {
+    if (!data) return;
+    const id = location.pathname.split("/").pop();
+    if (!id) return setCurrent(null);
 
-    for (const id in data.boards) {
-      if (data.boards[id].slug === slug) {
-        setCurrent({ id, ...data.boards[id] });
+    for (const key in data.boards) {
+      if (data.boards[key].slug === id) {
+        setCurrent({ id: key, ...data.boards[key] });
         break;
       }
     }
-  }, [searchParams, data]);
+  }, [location.pathname, data]);
+
+  // console.log("current", current);
 
   function onSubmit(e: any) {
     e.preventDefault();

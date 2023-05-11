@@ -44,27 +44,14 @@ export const Actions = styled.div`
   gap: 1rem;
 `;
 
-export const SignIn = styled.button`
-  background-color: ${(props) => props.theme.secondary};
-  color: ${(props) => props.theme.text};
-  padding: 0.5rem 1.5rem;
-  border-radius: 1rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  :hover {
-    filter: brightness(0.9);
-  }
-  :disabled {
-    cursor: not-allowed;
-    opacity: 0.4;
-  }
-`;
-
 export const Form = styled.form`
-  width: 25vw;
+  width: 25dvw;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  @media (max-width: 768px) {
+    width: 80dvw;
+  }
 `;
 
 export const Alert = styled.div`
