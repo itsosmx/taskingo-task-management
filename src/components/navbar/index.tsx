@@ -1,12 +1,11 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import { signOutUser } from "../../services/firebase";
 import Authentication from "../authentication";
 import useProvider from "../hooks/useProvider";
 import Modal from "../Modal";
 import { TextArea, TextInput, Select, Button } from "..";
-import { Container, Title, Wrapper, Actions, SignIn, SignOut, Form, AddButton } from "./styled";
-import { v4 as uuidV4 } from "uuid";
+import { Container, Wrapper, Actions, SignIn, Form, Header, DeleteButton, Alert } from "./styled";
+import { remove } from "../../services/database";
 
 export default function Navbar() {
   const { data, user, addTask } = useProvider();
@@ -14,6 +13,7 @@ export default function Navbar() {
   const [current, setCurrent] = React.useState<any>(null);
   const [visible, setVisible] = React.useState(false);
   const [visibleTask, setVisibleTask] = React.useState(false);
+  const [visibleAlert, setVisibleAlert] = React.useState(false);
 
   const handleShowTask = () => {
     setVisibleTask((state) => !state);
@@ -21,9 +21,12 @@ export default function Navbar() {
 
   React.useEffect(() => {
     if (!data?.boards) return;
+    const slug = searchParams.get("board");
+    console.log("saD??", slug);
+    if (!slug) return setCurrent(null);
 
     for (const id in data.boards) {
-      if (data.boards[id].slug === searchParams.get("board")) {
+      if (data.boards[id].slug === slug) {
         setCurrent({ id, ...data.boards[id] });
         break;
       }
@@ -32,45 +35,51 @@ export default function Navbar() {
 
   function onSubmit(e: any) {
     e.preventDefault();
-    const payload = {
+    addTask(current.id, {
       title: e.target.title.value,
       description: e.target.description.value,
       status: e.target.status.value,
-    };
-    addTask(current.id, payload);
+    });
     handleShowTask();
+  }
+
+  async function onDeleteBoard() {
+    await remove(`boards/${current.id}`);
+    setVisibleAlert(false);
+    setCurrent(null);
   }
 
   return (
     <Container>
       <Wrapper>
-        <Title>{current ? current.name : "No Board Selected."}</Title>
+        <Header>
+          <h2>{current ? current.name : "No Board Selected."}</h2>
+          {current && <DeleteButton onClick={() => setVisibleAlert(true)} className="fa-solid fa-trash"></DeleteButton>}
+        </Header>
         <Actions>
-          <AddButton disabled={!current} onClick={handleShowTask}>
+          <Button disabled={!current} onClick={handleShowTask}>
             <i className="fa-solid fa-plus"></i>
             <p>Add New Task</p>
-          </AddButton>
-          {user ? (
-            <SignOut onClick={signOutUser} className="fa-solid fa-right-from-bracket" />
-          ) : (
-            <SignIn onClick={() => setVisible(!visible)}>Sign In</SignIn>
-          )}
+          </Button>
+          {!user && <SignIn onClick={() => setVisible(!visible)}>Sign In</SignIn>}
         </Actions>
       </Wrapper>
+
       <Modal visible={!user && visible} setVisible={setVisible}>
         <Authentication />
       </Modal>
       <Modal visible={visibleTask} setVisible={setVisibleTask}>
         <Form onSubmit={onSubmit}>
           <h4>Add New Task</h4>
-          <TextInput name="title" label="Title" placeholder="e.g. Take coffee break" />
+          <TextInput required name="title" label="Title" placeholder="e.g. Take coffee break" />
           <TextArea
+            required
             label="Description"
             name="description"
             rows={7}
             placeholder="e.g. it's always good to take a break. This 15 minute break will recharge the batteries a little"
           />
-          <Select name="status">
+          <Select name="status" label="Status">
             {data?.columns &&
               Object.values(data?.columns).map((item) => (
                 <option key={item.id} value={item.id}>
@@ -79,10 +88,22 @@ export default function Navbar() {
               ))}
           </Select>
           <Button type="submit">Create Task</Button>
-          <Button type="reset" background="red">
+          <Button onClick={handleShowTask} type="reset" background="red">
             Cancel
           </Button>
         </Form>
+      </Modal>
+      <Modal visible={visibleAlert}>
+        <Alert>
+          <p>Are you sure you want to delete this board?</p>
+          <span>
+            <Button onClick={onDeleteBoard}>Confirm</Button>
+            <Button background="red" onClick={() => setVisibleAlert(false)}>
+              Cancel
+            </Button>
+          </span>
+          <i>taking any action here can not be undone later.</i>
+        </Alert>
       </Modal>
     </Container>
   );

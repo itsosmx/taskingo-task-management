@@ -4,7 +4,8 @@ const Fixed = {
   navbarHeight: "80px",
   secondary: "#645fc6",
   red: "#ea2e32",
-  white: "#ffffff"
+  white: "#ffffff",
+  blue: "#1877f2",
 };
 
 export const DarkTheme: Theme = {

@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { getDatabase, ref, get, onValue, update, remove, set, push, DataSnapshot } from "firebase/database";
+import { getDatabase, ref, get, onValue, update, remove as _remove, set, push, DataSnapshot } from "firebase/database";
 
 export async function getCurrentUser(uid: string, onChange: (snapshot: DataSnapshot) => unknown, onError?: Function) {
   try {
@@ -76,13 +76,13 @@ export async function pushData(route: string, snapshot: any, onError?: (error: u
     if (onError) onError(error);
   }
 }
-export async function removeData(route: string, snapshot: any, onError?: (error: unknown) => unknown) {
+export async function remove(route: string, onError?: (error: unknown) => unknown) {
   try {
     const db = getDatabase();
     const auth = getAuth();
-    const _ref = ref(db, `users/${auth.currentUser?.uid}${route}`);
+    const _ref = ref(db, `users/${auth.currentUser?.uid}/${route}`);
     if (!_ref) return onError ? onError("User not found.") : null;
-    // return remove(ref(_ref, ));
+    return _remove(_ref);
   } catch (error) {
     console.log(error);
     if (onError) onError(error);
@@ -94,7 +94,7 @@ export async function deleteUser(uid: any, onError?: (error: unknown) => unknown
     const db = getDatabase();
     const _ref = ref(db, `users/${uid}`);
     if (!_ref) return onError ? onError("User not found.") : null;
-    return remove(_ref);
+    return _remove(_ref);
   } catch (error) {
     console.log(error);
     if (onError) onError(error);

@@ -13,48 +13,39 @@ export const Wrapper = styled.div`
   padding: 1rem;
   justify-content: space-between;
 `;
-export const Title = styled.h2``;
-export const AddButton = styled.button`
+export const Header = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
+`;
+
+export const DeleteButton = styled.i`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: ${(props) => props.theme.secondary};
-  color: ${(props) => props.theme.text};
-  padding: 0.5rem 1.5rem;
-  border-radius: 1rem;
-  font-size: 1.1rem;
-  margin-inline: 1rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2em;
+  color: rgba(0, 0, 0, 0.6);
+  transition: 500ms;
   cursor: pointer;
+
   :hover {
     filter: brightness(0.9);
-  }
-  :disabled {
-    cursor: not-allowed;
-    opacity: 0.4;
+    transform: scale(1.05);
   }
 `;
+
 export const Actions = styled.div`
   display: flex;
   align-items: center;
 `;
+
 export const SignIn = styled.button`
   background-color: ${(props) => props.theme.secondary};
   color: ${(props) => props.theme.text};
-  padding: 0.5rem 1.5rem;
-  border-radius: 1rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  :hover {
-    filter: brightness(0.9);
-  }
-  :disabled {
-    cursor: not-allowed;
-    opacity: 0.4;
-  }
-`;
-export const SignOut = styled.button`
-  background-color: ${(props) => props.theme.red};
-  color: ${(props) => props.theme.white};
   padding: 0.5rem 1.5rem;
   border-radius: 1rem;
   font-size: 1.1rem;
@@ -73,4 +64,22 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+export const Alert = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  i {
+    font-size: 0.6rem;
+    text-align: center;
+    color: ${(props) => props.theme.blue};
+  }
 `;

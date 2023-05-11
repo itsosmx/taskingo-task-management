@@ -69,7 +69,8 @@ export default function Home() {
           ))}
         </Body>
       </Wrapper>
-      <Modal visible={visible} setVisible={setVisible}>
+
+      {/* <Modal visible={visible} setVisible={setVisible}>
         <ModalContainer onSubmit={handleSubmit} onKeyDown={handleKeyPress}>
           <p>Add New Column</p>
           <Input ref={form} placeholder="Column Title" />
@@ -78,7 +79,7 @@ export default function Home() {
           </Button>
           <Button onClick={handleAddingNewColumn}>Cancel</Button>
         </ModalContainer>
-      </Modal>
+      </Modal> */}
     </Container>
   );
 }

@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 interface ModalProps extends PropsWithChildren {
   visible?: boolean;
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setVisible?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Modal({ visible, setVisible, ...props }: ModalProps) {
@@ -19,10 +19,9 @@ export default function Modal({ visible, setVisible, ...props }: ModalProps) {
       transition={{
         duration: 0.5,
       }}
-
       className={visible ? "active" : ""}
     >
-      <Touchable onClick={() => setVisible(false)} />
+      <Touchable onClick={() => setVisible && setVisible(false)} />
       <Wrapper>{props.children}</Wrapper>
     </Container>
   );
@@ -47,6 +46,7 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.theme.primary};
   padding: 1rem;
   border-radius: 1rem;
+  position: relative;
 `;
 const Touchable = styled.div`
   background-color: rgba(0, 0, 0, 0.6);

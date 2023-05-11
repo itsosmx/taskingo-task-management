@@ -36,3 +36,19 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
+
+/*
+
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth.uid === $uid",
+        ".write": "auth.uid === $uid",
+      },
+    }
+  }
+}
+
+*/
