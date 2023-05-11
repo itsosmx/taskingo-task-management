@@ -1,4 +1,4 @@
-# Kanban task management web app [Taskingo](taskingo.osmx.me) [![Netlify Status](https://api.netlify.com/api/v1/badges/5c0f15c5-5bf7-4717-ae0b-225be30aed5d/deploy-status)](https://app.netlify.com/sites/taskingo/deploys)
+# [Taskingo](https://taskingo.osmx.me) Task management web app [![Netlify Status](https://api.netlify.com/api/v1/badges/5c0f15c5-5bf7-4717-ae0b-225be30aed5d/deploy-status)](https://app.netlify.com/sites/taskingo/deploys)
 **fully-functional task management app with a light/dark mode toggle.**
 
 ### Features:
@@ -14,4 +14,4 @@
 - Bonus: Build this project as a full-stack application
 
 
-**(Source)[https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB]**
+[Design Source](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB)
