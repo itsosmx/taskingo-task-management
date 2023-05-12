@@ -31,7 +31,7 @@ export const Header = styled.div`
 `;
 export const Title = styled.div`
   text-transform: uppercase;
-  color: ${(props) => props.theme.primaryText};
+  color: ${(props) => props.theme.text};
   font-weight: bold;
 `;
 export const Content = styled.div`

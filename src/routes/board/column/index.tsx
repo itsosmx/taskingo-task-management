@@ -1,7 +1,8 @@
 import { Container, Header, Title, Content, Color } from "./styled";
 import Task from "../task";
 
-export default function Column({ data, state, ...props }: { data: any; state: any }) {
+export default function Column({ boardId, data, state, ...props }: any) {
+
   return (
     <Container {...animations} {...props}>
       <Header>
@@ -12,7 +13,9 @@ export default function Column({ data, state, ...props }: { data: any; state: an
         {data?.tasks &&
           Object.keys(data?.tasks)
             .filter((x) => data?.tasks[x]?.status === state.id)
-            .map((task) => <Task color={state.color} item={data?.tasks[task]} key={task} />)}
+            .map((task) => (
+              <Task boardId={boardId} color={state.color} id={task} item={data?.tasks[task]} key={task} />
+            ))}
       </Content>
     </Container>
   );
@@ -29,5 +32,3 @@ const animations = {
     duration: 1,
   },
 };
-
-
