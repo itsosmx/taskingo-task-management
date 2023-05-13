@@ -1,6 +1,7 @@
-import styled, { keyframes } from "styled-components";
+import { motion } from "framer-motion";
+import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
   background-color: ${(props) => props.theme.primary};
   padding: 1rem;
   border-radius: 1rem;

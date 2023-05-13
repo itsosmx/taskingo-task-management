@@ -1,27 +1,28 @@
 import { useState } from "react";
 import { Button, Container, Wrapper, Title, Description, Actions } from "./styled";
-import { remove } from "../../../services/database";
+import { remove, updateData } from "../../../services/database";
 export default function Task({ boardId, id, color, item, ...props }: any) {
   const [state, setState] = useState(false);
 
   async function onChangeStatus(status: string) {
-    switch (status) {
-      case "default_todo":
-        console.log("default_todo");
-        break;
-      case "default_doing":
-        console.log("default_doing");
-        break;
-      case "default_done":
-        console.log("default_done");
-        break;
-      default:
-        await remove(`boards/${boardId?.id}/tasks/${id}`);
+    if (status !== "remove") {
+      await updateData(`/boards/${boardId}/tasks/${id}`, {
+        status,
+      });
+    } else {
+      await remove(`boards/${boardId}/tasks/${id}`, console.log);
     }
   }
 
   return (
-    <Container onClick={() => setState(!state)} style={{ backgroundColor: color }} {...props}>
+    <Container
+      whileHover={{ scale: 1.04 }}
+      whileInView={{ opacity: [0, 0.5, 1] }}
+      onClick={() => setState(!state)}
+      initial={{ opacity: 0 }}
+      style={{ backgroundColor: color }}
+      {...props}
+    >
       <Wrapper>
         <Title>{item.title}</Title>
         <Description>{item.description}</Description>

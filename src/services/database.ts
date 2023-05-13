@@ -55,7 +55,7 @@ export async function createUser(uid: string, onError?: (error: unknown) => unkn
   }
 }
 
-export async function updateData(route: string, snapshot: any, onError?: (error: unknown) => unknown) {
+export async function updateData(route: string, snapshot?: any, onError?: (error: unknown) => unknown) {
   try {
     const db = getDatabase();
     const auth = getAuth();
