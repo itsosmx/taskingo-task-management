@@ -18,8 +18,8 @@ export const DarkTheme: Theme = {
   ...Fixed,
 };
 export const LightTheme: Theme = {
-  primary: "#ffffff",
-  darkPrimary: "#8590a2",
+  primary: "#cdcecf",
+  darkPrimary: "#ffffff",
   lightPrimary: "#d3d9e4",
   text: "#21212d",
   primaryText: "#7e8796",
