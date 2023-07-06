@@ -1,6 +1,6 @@
 # [Taskingo](https://taskingo.osmx.me) Task management web app [![Netlify Status](https://api.netlify.com/api/v1/badges/5c0f15c5-5bf7-4717-ae0b-225be30aed5d/deploy-status)](https://app.netlify.com/sites/taskingo/deploys)
 **fully-functional task management app with a light/dark mode toggle.**
-
+![image](https://github.com/itsosmx/taskingo-task-management/assets/49457438/a1b8e4ac-5190-445e-bf4b-f42b067360d3)
 ### Features:
 - View the optimal layout for the app depending on their device's screen size
 - See hover states for all interactive elements on the page
