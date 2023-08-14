@@ -19,7 +19,7 @@ export default function Board() {
   return (
     <Container>
       <Wrapper>
-        {Object.keys(data?.columns).map((key) => (
+        {Object.keys(data?.columns).reverse().map((key) => (
           <Column boardId={current?.id} key={key} state={data?.columns[key]} data={current} />
         ))}
       </Wrapper>
