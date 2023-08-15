@@ -34,14 +34,14 @@ const Input = styled.select`
   padding: 0.5rem 1rem;
   text-transform: uppercase;
   color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.primary};
+  background: ${(props) => props.theme.primary};
   border-radius: 0.4rem;
   border: 1px solid ${(props) => props.theme.lightPrimary};
   font-weight: bold;
 
   option {
     padding: 0.5rem;
-    background-color: ${(props) => props.theme.primary};
+    background: ${(props) => props.theme.primary};
     color: ${(props) => props.theme.text};
     font-size: 0.9rem;
   }

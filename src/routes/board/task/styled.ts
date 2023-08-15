@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Container = styled(motion.div)`
-  background-color: ${(props) => props.theme.primary};
+  background: ${(props) => props.theme.primary};
   padding: 1rem;
   border-radius: 1rem;
   transition: 200ms;
@@ -32,7 +32,7 @@ export const Actions = styled.div`
   width: 0;
   height: 100%;
   overflow: hidden;
-  background-color: ${(props) => props.theme.secondary};
+  background: ${(props) => props.theme.secondary};
   transition: 500ms;
   display: flex;
   align-items: center;
@@ -47,14 +47,14 @@ export const Actions = styled.div`
 
 export const Button = styled.button`
   all: unset;
-  background-color: rgba(0, 0, 0, 0.3);
-  background-color: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3);
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   font-weight: bold;
   transition: 500ms;
 
   :hover {
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5);
   }
 `;

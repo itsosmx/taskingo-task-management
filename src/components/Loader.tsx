@@ -23,7 +23,7 @@ const Container = styled.div`
   }
 
   .spinner > div {
-    background-color: rgba(71, 75, 255, 0.2);
+    background: rgba(71, 75, 255, 0.2);
     height: 100%;
     position: absolute;
     width: 100%;

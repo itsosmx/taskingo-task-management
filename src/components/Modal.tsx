@@ -45,13 +45,13 @@ const Container = styled(motion.div)`
 `;
 
 const Wrapper = styled.div`
-  background-color: ${(props) => props.theme.primary};
+  background: ${(props) => props.theme.primary};
   padding: 1rem;
   border-radius: 1rem;
   position: relative;
 `;
 const Touchable = styled.div`
-  background-color: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.6);
   position: fixed;
   left: 0;
   top: 0;

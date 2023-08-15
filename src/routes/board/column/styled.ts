@@ -11,7 +11,7 @@ export const Container = styled.div`
   &.dragging {
     ::after {
       content: "drop here";
-      background-color: rgba(0, 0, 0, 0.1);
+      background: rgba(0, 0, 0, 0.1);
       position: absolute;
       width: 100%;
       height: 100%;

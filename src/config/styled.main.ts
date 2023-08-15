@@ -7,7 +7,7 @@ import { ToastContainer as RawToastContainer } from "react-toastify";
 //   }
 // `;
 export const Main = styled.main`
-  background-color: ${(props) => props.theme.darkPrimary};
+  background: ${(props) => props.theme.darkPrimary};
   color: ${(props) => props.theme.text};
   position: relative;
   display: grid;
@@ -36,10 +36,10 @@ export const Body = styled.div`
   ::-webkit-scrollbar {
     height: 0.5rem;
     width: 0.5rem;
-    background-color: ${(props) => props.theme.lightPrimary};
+    background: ${(props) => props.theme.lightPrimary};
   }
   ::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.secondary};
+    background: ${(props) => props.theme.secondary};
     border-radius: 1rem;
   }
 

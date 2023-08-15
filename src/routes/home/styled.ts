@@ -13,10 +13,10 @@ export const Wrapper = styled(motion.div)`
   ::-webkit-scrollbar {
     height: 0.5rem;
     width: 0.5rem;
-    background-color: ${(props) => props.theme.primary};
+    background: ${(props) => props.theme.primary};
   }
   ::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.secondary};
+    background: ${(props) => props.theme.secondary};
   }
 `;
 
@@ -37,7 +37,7 @@ export const BoardCard = styled(Link)`
   flex-direction: column;
   align-items: center;
   width: 200px;
-  background-color: ${(props) => props.theme.primary};
+  background: ${(props) => props.theme.primary};
   border: 2px solid ${(props) => props.theme.lightPrimary};
   :hover {
     filter: brightness(0.9);

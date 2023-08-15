@@ -28,7 +28,7 @@ const Container = styled.div`
 `;
 const Input = styled.textarea`
   color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.primary};
+  background: ${(props) => props.theme.primary};
   border: 1px solid ${(props) => props.theme.lightPrimary};
   padding: 0.7rem 1rem;
   border-radius: 0.3rem;

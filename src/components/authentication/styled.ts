@@ -31,7 +31,7 @@ export const Button = styled.div`
   gap: 1rem;
   align-items: center;
   color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.darkPrimary};
+  background: ${(props) => props.theme.darkPrimary};
   transition: 500ms;
   border-radius: 1rem;
   text-transform: uppercase;
@@ -47,7 +47,7 @@ export const Button = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${(props) => props.theme.secondary};
+    background: ${(props) => props.theme.secondary};
   }
   p {
     padding: 1rem;

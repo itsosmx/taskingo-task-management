@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Switch from "react-switch";
 
 export const Container = styled.div`
-  background-color: ${(props) => props.theme.primary};
+  background: ${(props) => props.theme.primary};
   border-right: 1px ${(props) => props.theme.lightPrimary} solid;
   position: relative;
   grid-area: sidebar;
@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
   max-height: 100%;
 `;
 export const Shadow = styled.div`
-  /* background-color: red; */
+  /* background: red; */
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -34,10 +34,10 @@ export const BoardsContainer = styled.div`
   overflow-y: scroll;
   ::-webkit-scrollbar {
     width: 4px;
-    background-color: ${(props) => props.theme.secondary};
+    background: ${(props) => props.theme.secondary};
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.4);
   }
 `;
 export const BoardsTitle = styled.p`
@@ -68,7 +68,7 @@ const RawButton = css`
     filter: brightness(0.7);
   }
   &.active {
-    background-color: ${(props) => props.theme.secondary};
+    background: ${(props) => props.theme.secondary};
   }
 `;
 export const BoardButton = styled(Link)`
@@ -79,7 +79,7 @@ export const BoardsAddButton = styled.div`
   color: ${(props) => props.theme.secondary};
 `;
 export const Input = styled.input`
-  background-color: ${(props) => props.theme.primary};
+  background: ${(props) => props.theme.primary};
   border: 1px solid ${(props) => props.theme.lightPrimary};
   padding: 1rem 3rem;
   border-radius: 1rem;
@@ -87,7 +87,7 @@ export const Input = styled.input`
   outline: none;
 `;
 export const Button = styled.button<{ submit?: boolean }>`
-  background-color: ${(props) => (props?.submit ? props.theme.secondary : props.theme.red)};
+  background: ${(props) => (props?.submit ? props.theme.secondary : props.theme.red)};
   color: ${(props) => props.theme.text};
   text-align: center;
   padding: 0.5rem;
@@ -107,7 +107,7 @@ export const Actions = styled.div`
   gap: 0.2rem;
 `;
 export const UserWrapper = styled.div`
-  background-color: ${(props) => props.theme.darkPrimary};
+  background: ${(props) => props.theme.darkPrimary};
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
@@ -130,7 +130,7 @@ export const ModalContent = styled.div`
 
 export const ThemeSwitch = styled(Switch)``;
 export const Theme = styled.div`
-  background-color: ${(props) => props.theme.darkPrimary};
+  background: ${(props) => props.theme.darkPrimary};
   border-radius: 0.5rem;
   display: flex;
   align-items: center;

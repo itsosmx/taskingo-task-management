@@ -73,7 +73,7 @@ export default function Sidebar() {
       <Wrapper>
         <div>
           <Title to="/">
-            <h1>Taskingo</h1>
+            <h1 className="gradient-text">Taskingo</h1>
           </Title>
           <BoardsTitle>All Boards ( {data?.boards ? Object.keys(data?.boards).length : 0} )</BoardsTitle>
           <BoardsAddButton onClick={changeModalVisible}>
@@ -100,7 +100,7 @@ export default function Sidebar() {
               onChange={(value) => setSettings((state) => ({ ...state, isDarkTheme: value }))}
               checked={settings.isDarkTheme}
               //@ts-ignore
-              onColor={theme?.secondary}
+              onColor={theme?.accent}
               //@ts-ignore
               offColor={theme?.darkPrimary}
             />

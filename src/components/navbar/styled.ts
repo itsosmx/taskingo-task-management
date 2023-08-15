@@ -23,7 +23,7 @@ export const DeleteButton = styled.i`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => props.theme.secondary};
+  background: ${(props) => props.theme.secondary};
   border-radius: 50%;
   width: 40px;
   height: 40px;

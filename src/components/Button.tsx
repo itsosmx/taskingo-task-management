@@ -16,7 +16,7 @@ export default function Button({ labelColor, background, ...props }: ButtonProps
 
 const Container = styled.button<{ background?: string; labelColor?: string }>`
   all: unset;
-  background-color: ${(props) => props.theme[props.background || "secondary"]};
+  background: ${(props) => props.theme[props.background || "secondary"]};
   color: ${(props) => props.theme[props.labelColor || "white"]};
   padding: 0.5rem 2rem;
   border-radius: 1rem;
