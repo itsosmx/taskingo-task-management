@@ -11,12 +11,12 @@ export const Main = styled.main`
   color: ${(props) => props.theme.text};
   position: relative;
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: 1fr 4.5fr;
   grid-template-rows: 80px calc(50vh - 80px) 50vh;
   grid-template-areas:
-    "sidebar sidebar navbar navbar navbar navbar navbar navbar navbar"
-    "sidebar sidebar main main main main main main main"
-    "sidebar sidebar main main main main main main main";
+    "sidebar navbar"
+    "sidebar main"
+    "sidebar main";
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -32,7 +32,7 @@ export const Body = styled.div`
   grid-area: main;
   height: calc(100dvh - 80px);
   overflow-y: auto;
-
+  
   ::-webkit-scrollbar {
     height: 0.5rem;
     width: 0.5rem;

@@ -43,7 +43,7 @@ export default function Sidebar() {
     await addBoard({
       slug,
       tasks: {},
-      name: nameRef.current.value,
+      name: nameRef.current.value.replace("-", " "),
     });
     changeModalVisible();
     nameRef.current.value = "";
@@ -51,11 +51,7 @@ export default function Sidebar() {
 
   function _renderBoards(item: AppProviderPropsBoards) {
     return (
-      <BoardButton
-        className={searchParams.get("board") === item.slug ? "active" : ""}
-        to={`/board/${item.slug}`}
-        key={item.slug}
-      >
+      <BoardButton className={searchParams.get("board") === item.slug ? "active" : ""} to={`/board/${item.slug}`} key={item.slug}>
         <i className="fa-regular fa-folder"></i>
         <p>{item.name}</p>
       </BoardButton>
